@@ -111,7 +111,8 @@ public class Linklist implements Ilist {
 		s.next = p.next;
 		p.next = s;// 修改连，使新节点插入链表中
 	}
-
+	
+    
 	// 删除带头节点的单链表中第i个节点(tip寻找前驱结点)
 	@Override
 	public void remove(int i) throws Exception {
@@ -157,14 +158,14 @@ public class Linklist implements Ilist {
 		System.out.println("请输入要创建链表的长度：");
 		int n = in.nextInt();
 		System.out.println("请输入链表的值：");
-		Linklist L = new Linklist(n, true);
+		Linklist L = new Linklist(n, false);
 		L.display();
 		System.out.println();
-		/*System.out.println("请输入要删除的第n个节点：");
+		System.out.println("请输入要删除的第n个节点：");
 		int m = in.nextInt();
 		L.remove(m);
 		L.display();
-		System.out.println();*/
+		System.out.println();
 		System.out.println("输入要查找的值");
 		Object a1 = in.next();//这里是Object类型
 		System.out.println(L.indexOf(a1));

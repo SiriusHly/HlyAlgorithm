@@ -74,7 +74,7 @@ public class DebugBiTree {
 		T.postRootTraverse();*/
 		
 		
-		/*String preStr = "AB##CD###";
+		String preStr = "AB##CD###";
 		BiTree T = new BiTree(preStr);
 		System.out.println("先根遍历");
 		T.preRootTraverse();
@@ -84,7 +84,8 @@ public class DebugBiTree {
 		System.out.println();
 		System.out.println("后根遍历");
 		T.postRootTraverse();
-		System.out.println();*/
+		System.out.println();
+		System.out.println(T.countNode(T.root));
 		
 		
 		

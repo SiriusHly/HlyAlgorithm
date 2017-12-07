@@ -1,5 +1,7 @@
 package Tree;
 
+import java.util.Stack;
+
 import MyPractiseList.Link;
 import Stack.LinkStack;
 
@@ -40,16 +42,16 @@ public class BiTree {
 	}
 
 	// 由标明空子数的先根遍历创建一颗二叉树算法
-	private static int index = 0;// 用于记录preStr的索引值
+	private static int index = 0;// 用于记录preStr的索引值String S="abd###ce##f##";
 
-	public BiTree(String preStr) {
+	public BiTree(String preStr) {//AB##CD###
 		char c = preStr.charAt(index++);
 		if (c != '#') {
 			root = new BiTreeNode(c);
 			root.lchild = new BiTree(preStr).root;
 			root.rchild = new BiTree(preStr).root;
 		} else {
-			root = null;
+			root = null;                                    
 		}
 	}
 
@@ -128,7 +130,7 @@ public class BiTree {
 			LinkStack S = new LinkStack();
 			S.push(T);
 			Boolean flag;// 默认为false
-			BiTreeNode P = null;// 记录访问输出过的又孩子
+			BiTreeNode P = null;// 记录访问输出过的右孩子
 			while (!S.isEmpty()) {
 				while (S.peek() != null)// 别漏词句
 					S.push(((BiTreeNode) S.peek()).lchild);
@@ -151,6 +153,37 @@ public class BiTree {
 		}
 	}
 
+	/*public void postTraverse_nonR(BiTreeNode<AnyType> root){
+		BiTreeNode<AnyType> T = root;
+		if(T!=null){
+			Stack<BiTreeNode<AnyType>> S = new Stack<BiTreeNode<AnyType>>();
+			S.push(T);
+			boolean flag;
+			BiTreeNode<AnyType> p = null;//记录访问过的右孩子
+			while(!S.isEmpty()){
+				while(S.peek()!=null)
+					S.push(S.peek().lchild);
+				S.pop();
+				
+				while(!S.isEmpty()){
+					T = S.peek();
+					if(T.rchild==null||T.rchild==p){//表示右孩子已经输出过了
+						System.out.print(T.data+" ");
+						S.pop();
+						p=T;//已经输出记录
+						flag =true;
+					}
+					else{
+						S.push(T.rchild);//有右孩子没访问就到这一步
+						flag = false;//跳出循环，以未输出的右孩子为中心
+					}
+					if(!flag)
+						break;
+				}
+			}
+			
+		}
+	}*/
 	// 层次遍历二叉树算法，自左向右
 	public void levelTraverse() {
 		BiTreeNode T = root;
@@ -176,7 +209,9 @@ public class BiTree {
 	public int getDepth(BiTreeNode T) {
 		if (T != null) {
 			int lDepth = getDepth(T.lchild);
+			System.out.println("l  :"+lDepth);
 			int rDepth = getDepth(T.rchild);
+			System.out.println("r  :"+rDepth);
 			return 1 + (lDepth > rDepth ? lDepth : rDepth);
 		}
 		return 0;

@@ -15,4 +15,6 @@ public class BiTreeNode {
 		this.lchild  = lchild;
 		this.rchild = rchild;
 	}
+	
+	
 }
