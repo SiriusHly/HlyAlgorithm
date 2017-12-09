@@ -4,8 +4,7 @@ import java.util.Scanner;
 
 /**
  * 
- * @author 黄良运
- *time:2017.12.7
+ * @author 黄良运 time:2017.12.7 邻接矩阵存储结构
  * @param <AnyType>
  */
 public class MyGraph<AnyType> {
@@ -166,16 +165,41 @@ public class MyGraph<AnyType> {
 		return vexs;
 	}
 
+	// 求某个点的度
+	public int getDegree(Object v) throws Exception {
+		int k = 0, s = 0;
+		k = locateVex(v);
+		for (int w = firstAdjVex(k); w >= 0; w = nextAdjVex(k, w)) // 出度
+			s++;
+		//入度
+		for (Object i : vexs) {
+			int u = locateVex(i);
+			for (int w = firstAdjVex(u); w >= 0; w = nextAdjVex(u, w))
+				if (vexs[w].equals(v))
+					s++;
+		}
+		return s;
+
+	}
+
 	public static void main(String[] args) throws Exception {
 		/**
-		 * v1 v2 v3 v4
-		 * v1 v2 1 v2 v3 1 v2 v4 1 v3 v4 1
+		 * v1 v2 v3 v4 v1 v2 1 v2 v3 1 v2 v4 1 v3 v4 1
 		 */
 		MyGraph<String> s = new MyGraph<String>();
+		Scanner in = new Scanner(System.in);
 		s.createGraph();
 		System.out.println("输出结束");
 		System.out.println(s.firstAdjVex(1));
 		System.out.println(s.nextAdjVex(1, 2));
+		//GraphTraverse.BFSTraverse(s);
+		System.out.println();
+		//GraphTraverse.DFSTraverse(s);
+		System.out.println("请输入要查找的某个点的度");
+		while (in.hasNext()) {
+			String k = in.next();
+			System.out.println(s.getDegree(k));
+		}
 
 	}
 

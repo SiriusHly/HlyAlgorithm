@@ -16,13 +16,13 @@ public class BiTree<AnyType> {
 
 	public BiTree(AnyType[] preorder) {// "a","b","d","#","#","#","c","e","#","#","f","#","#"
 		AnyType data = preorder[$++];
-		if (!data.equals("#")) {
+		if (data!="#") {
 			root = new BiTreeNode<AnyType>(data);
 			root.lchild = new BiTree<AnyType>(preorder).root;
 			root.rchild = new BiTree<AnyType>(preorder).root;
-		} else {
+		} else 
 			root = null;
-		}
+		
 	}
 
 	int count = 0;
