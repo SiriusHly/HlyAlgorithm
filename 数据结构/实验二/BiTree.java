@@ -55,7 +55,7 @@ public class BiTree<AnyType> {
 			this(data, null, null);
 		}
 
-		public BiTreeNode(AnyType data, BiTreeNode<AnyType> lchild, BiTreeNode<AnyType> rchild) {
+		public BiTreeNode(AnyType data, BiTreeNode<AnyType> lchild,BiTreeNode<AnyType> rchild) {
 			super();
 			this.data = data;
 			this.lchild = lchild;

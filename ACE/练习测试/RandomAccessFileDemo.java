@@ -11,7 +11,7 @@ public class RandomAccessFileDemo {
 	public static void main(String []args){
 		RandomAccessFile raf = null;
 		try {
-			raf =new RandomAccessFile("f:\\book\\test.txt", "rw");
+			raf =new RandomAccessFile("f:\\book\\exchangeSystem.txt", "rw");
 			raf.writeInt(10);
 			raf.writeChar('a');
 			raf.seek(4);//第四个字节

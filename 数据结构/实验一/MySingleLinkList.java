@@ -47,9 +47,13 @@ public class MySingleLinkList<AnyType extends Comparable<? super AnyType>> {
 		Node<AnyType> p= L.firstNode;
 		int count=0;
 		while(p!=null){
-			if(p.data!=x)
+			if(p.data!=x){
 				p=p.nextNode;
 			count++;
+			}
+			else{
+				break;
+			}
 		}
 		return count;
 	}
@@ -196,9 +200,13 @@ public class MySingleLinkList<AnyType extends Comparable<? super AnyType>> {
 				i = count;
 			}
 		}
-
 		remove(i);
 		addHead(s);
+		
+		
+		
+		
+		
 		return L;
 	}
 
@@ -237,6 +245,8 @@ public class MySingleLinkList<AnyType extends Comparable<? super AnyType>> {
 			La.addHead(i);
 		System.out.println(La.getNodeData(2));
 
+		La.display(La);
+		La.moveMin(La);
 		La.display(La);
 		/*
 		 * for(int i=2;i<6;i++) Lb.add(i); Lb.display(Lb); La.add(2,66);

@@ -40,7 +40,7 @@ public class DebugBiTree {
 	}
 
 	public static void main(String[] args) throws Exception {
-		DebugBiTree debugBiTree = new DebugBiTree();
+		/*DebugBiTree debugBiTree = new DebugBiTree();
 		BiTree biTree = debugBiTree.createBiTree();
 		BiTreeNode root = biTree.root;
 		System.out.print("递归先根遍历序列为：");
@@ -65,16 +65,19 @@ public class DebugBiTree {
 		System.out.println("交换左右子树后的先跟遍历");
 		biTree.changeLAndR(root);
 		biTree.preRootTraverse(root);
-		System.out.println();
-		/*String preOrder = "ABDEGCFH";
-		String inOrder = "DBGEAFHC";
+		System.out.println();*/
+		
+		String preOrder = "abdcef";
+		String inOrder = "dbaecf";
 		//根据先根和中根创建一棵树
 		BiTree T = new BiTree(preOrder,inOrder,0,0,preOrder.length());
 		System.out.println("后跟遍历");
-		T.postRootTraverse();*/
+		T.postRootTraverse();
+		System.out.println();
+		T.preRootTraverse();
 		
 		
-		String preStr = "AB##CD###";
+		/*String preStr = "ABD###CE##F##";
 		BiTree T = new BiTree(preStr);
 		System.out.println("先根遍历");
 		T.preRootTraverse();
@@ -85,7 +88,7 @@ public class DebugBiTree {
 		System.out.println("后根遍历");
 		T.postRootTraverse();
 		System.out.println();
-		System.out.println(T.countNode(T.root));
+		System.out.println(T.countNode(T.root));*/
 		
 		
 		

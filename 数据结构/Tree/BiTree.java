@@ -1,8 +1,6 @@
 package Tree;
 
-import java.util.Stack;
 
-import MyPractiseList.Link;
 import Stack.LinkStack;
 
 /*Hly

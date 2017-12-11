@@ -13,8 +13,8 @@ public class DataInAndOutTest {
 	}
 
 	public static void main(String[] args) {
-		// File f = new File("f:\\book\\test.dat");
-		String p = "f:\\book\\test.dat";
+		// File f = new File("f:\\book\\exchangeSystem.dat");
+		String p = "f:\\book\\exchangeSystem.dat";
 		FileOutputStream fos = null;
 		FileInputStream fis = null;
 		DataOutputStream dos = null;

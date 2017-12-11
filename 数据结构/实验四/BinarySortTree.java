@@ -1,12 +1,8 @@
 package й╣яИкд;
 
-/*
- * author:╩фа╪тк
- * time2017.12.7
- */
-import еепР.ElementType;
-import еепР.KeyType;
-import еепР.RecordNode;
+import one_еепР.ElementType;
+import one_еепР.KeyType;
+import one_еепР.RecordNode;
 
 public class BinarySortTree {
 	BiTreeNode root;
