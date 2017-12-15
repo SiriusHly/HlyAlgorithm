@@ -208,9 +208,10 @@ public class BiTree<AnyType> {
 		String[] a = { "a", "b", "d", "#", "#", "#", "c", "e", "#", "#", "f", "#", "#" };
 		Character[] b = { 'a', 'b', 'd', '#', '#', '#', 'c', 'e', '#', '#', 'f', '#', '#' };
 
-		BiTree<String> biTree = new BiTree<String>(a);// ABDEGCFH//DBGEAFHC
-		BiTree<String> biTree2 = new BiTree<String>();// ABDEGCFH//DBGEAFHC
+		BiTree<String> biTree2 = new BiTree<String>(a);// ABDEGCFH//DBGEAFHC
+		BiTree<String> biTree = new BiTree<String>();// ABDEGCFH//DBGEAFHC
 		// biTree.root = biTree.createBiTreeByPreorder(a);
+		biTree.create(a);
 		biTree.preTraverse(biTree.root);// abdcef
 		System.out.println();
 		biTree.preTraverse_nonR(biTree.root);

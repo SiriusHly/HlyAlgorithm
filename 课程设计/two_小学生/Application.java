@@ -11,7 +11,9 @@ public class Application {
 //        Object rval = Eval.eval("System.out.println(\"555\");return 5;");
 //        System.out.println(rval);
         Application app = new Application();
+        System.out.println(app.eval("5*3/4+1"));
         System.out.println(app.eval("1+(3-1)*2+(6/5)"));
+        System.out.println(app.infixExpToPostExp("5*3/4+1"));
     }
     public String eval(String exp) throws Exception {
         List list = infixExpToPostExp(exp);// 转化成后缀表达式
