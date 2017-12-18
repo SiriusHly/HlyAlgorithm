@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
+public class MyBinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 	BiTreeNode<AnyType> root;
 
 	static class BiTreeNode<AnyType> {
@@ -22,12 +22,12 @@ public class BinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 		}
 	}
 
-	public BinaryAndHeap(BiTreeNode<AnyType> root) {
+	public MyBinaryAndHeap(BiTreeNode<AnyType> root) {
 		this.root = root;
 	}
 
 	// 详解：inIndex中根遍历序列在Inorder中的开始位置，count表示树中结点的个数
-	public BinaryAndHeap(AnyType preOrder[], AnyType inOrder[], int preIndex, int inIndex, int count) {
+	public MyBinaryAndHeap(AnyType preOrder[], AnyType inOrder[], int preIndex, int inIndex, int count) {
 		if (count > 0) {// 先根和中根非空
 			AnyType r = preOrder[preIndex];// 取先根遍历中的第一个结点作为根结点
 			int i = 0;
@@ -35,9 +35,9 @@ public class BinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 				if (r.compareTo(inOrder[i + inIndex]) == 0)
 					break;
 			root = new BiTreeNode<AnyType>(r);
-			root.lchild = new BinaryAndHeap<AnyType>(preOrder, inOrder, preIndex + 1, inIndex, i).root;
+			root.lchild = new MyBinaryAndHeap<AnyType>(preOrder, inOrder, preIndex + 1, inIndex, i).root;
 			// index+i+1中根遍历序列开始的位置，整个中根序列序列开始的位置，a左边结束之后preindex+i+1=3，也就是c的位置
-			root.rchild = new BinaryAndHeap<AnyType>(preOrder, inOrder, preIndex + i + 1, inIndex + i + 1,
+			root.rchild = new MyBinaryAndHeap<AnyType>(preOrder, inOrder, preIndex + i + 1, inIndex + i + 1,
 					count - 1 - i).root;
 			// System.out.println(inIndex + i + 1);
 		}
@@ -144,8 +144,8 @@ public class BinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 		String[] S3 = { "b", "x", "y", "d", "c" };
 		String[] S4 = { "y", "x", "d", "b", "c" };
 
-		BinaryAndHeap<String> T = new BinaryAndHeap<String>(S3, S4, 0, 0, S3.length);
-		BinaryAndHeap<String> T2 = new BinaryAndHeap<String>(S1, S2, 0, 0, S1.length);
+		MyBinaryAndHeap<String> T = new MyBinaryAndHeap<String>(S3, S4, 0, 0, S3.length);
+		MyBinaryAndHeap<String> T2 = new MyBinaryAndHeap<String>(S1, S2, 0, 0, S1.length);
 		T.postTraverse(T.root);
 		System.out.println();
 		T.preTraverse(T.root);

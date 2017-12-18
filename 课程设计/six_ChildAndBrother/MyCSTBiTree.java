@@ -9,11 +9,11 @@ import java.util.Queue;
  *         森林的先序遍历等同于其对应的二叉树的先序遍历。 ②森林的中序遍历等同于其对应的二叉树的中序遍历。
  *         树的先序遍历和后序遍历分别对应该树转换成的二叉树的先序遍历和中序遍历。
  */
-public class CSTBiTree<AnyType extends Comparable<? super AnyType>> {
+public class MyCSTBiTree<AnyType extends Comparable<? super AnyType>> {
 	private CSTBiTreeNode<AnyType> root = null;
 	static int count = 0;
 
-	public CSTBiTree() {
+	public MyCSTBiTree() {
 		root = null;
 	}
 
@@ -123,7 +123,7 @@ public class CSTBiTree<AnyType extends Comparable<? super AnyType>> {
 		// String[] string = {"a", "b", "d", "#", "#", "#", "c", "e", "#", "#",
 		// "f", "#", "#"};
 		String[] string = { "a", "b", "d", "#", "e", "#", "#", "c", "#", "f", "#", "#", "#" };
-		CSTBiTree<String> cstBiTree = new CSTBiTree<String>();
+		MyCSTBiTree<String> cstBiTree = new MyCSTBiTree<String>();
 		CSTBiTreeNode<String> r = cstBiTree.createCST(string);
 		//树的先序对应二叉树的先序
 		cstBiTree.preOrder(r);

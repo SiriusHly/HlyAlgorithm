@@ -125,7 +125,6 @@ public class MyCalculator {
 	// 对后缀表达式进行计算
 	private String Calculate(List<String> postfix) throws Exception {
 		Stack<String> st = new Stack<String>();
-		String element;
 		double n, m, result;
 		for (String i :postfix) {
 			if (isOperator(i)) {

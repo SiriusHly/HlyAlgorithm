@@ -81,16 +81,42 @@ public class MyHuffmanTree<AnyType extends Comparable<? super AnyType>> {
 		return min;
 	}
 	
-	//译码
+	//单独译码
 	public int getTranslation(String str){
+		HuffmanNode<AnyType> root = this.root;
 		int i=0;
 		while(i<str.length()){
-			if(str.charAt(i++)==0)
+			if(str.charAt(i++)=='0')
 				root= root.lchild;
+				///System.out.println(root.weight);
 			else
 				root= root.rchild;
+				///System.out.println(root.weight);
 		}
 		return root.weight;
+	}
+	//全部译码
+	public void getTranslate(int [][]HN){
+		HuffmanNode<AnyType> root=this.root;
+		for(int i =0;i<HN.length;i++){//行长度
+			for(int j=0;j<HN[i].length;j++){//列长度
+				if(HN[i][j]==-1){
+					for(int k=j+1;k<HN[i].length;k++){
+						if(HN[i][k]==0){
+							root = root.lchild;
+						}
+						else{
+							root = root.rchild;
+						}
+					}
+					System.out.print(root.weight+" ");
+				}
+			}
+			root = this.root;
+		}
+		
+		
+		
 	}
 	
 	
@@ -113,10 +139,12 @@ public class MyHuffmanTree<AnyType extends Comparable<? super AnyType>> {
 			}
 			System.out.println();
 		}
-		while(in.hasNext()){
+		System.out.println("译码为:");
+		T.getTranslate(HN);
+		/*while(in.hasNext()){
 			String str = in.next();
 			System.out.println(T.getTranslation(str));
-		}
+		}*/
 		
 	}
 

@@ -13,8 +13,6 @@ public class MyGraph<AnyType extends Comparable<?super AnyType>> {
 	private int vexNum, arcNum;// 顶点数和边数
 	private AnyType[] vexs;// 顶点
 	private int[][] arcs;// 邻接矩阵
-	Scanner in = new Scanner(System.in);
-
 	public MyGraph() {
 		this(0, 0, null, null);
 	}
@@ -25,48 +23,21 @@ public class MyGraph<AnyType extends Comparable<?super AnyType>> {
 		this.vexs = vexs;
 		this.arcs = arcs;
 	}
-
-	// 创建无向图
-	public void createUDG() {
-		System.out.println("请分别输入图的顶点数，图的边数");
-		vexNum = in.nextInt();
-		arcNum = in.nextInt();
-		vexs = (AnyType[])new Object[vexNum];
-		System.out.println("请分别输入图的各个顶点");
-		for (int v = 0; v < vexNum; v++)// 构造顶点向量
-			vexs[v] = (AnyType)in.next();
-		arcs = new int[vexNum][vexNum];
-		for (int v = 0; v < vexNum; v++)
-			for (int u = 0; u < vexNum; u++)
-				arcs[v][u] = INFINITY;
-		System.out.println("请输入各个边的两个顶点及其权值");
-		for (int k = 0; k < arcNum; k++) {
-			int v = locateVex((AnyType)in.next());// 得到顶点的下标
-			int u = locateVex((AnyType)in.next());
-			arcs[v][u] = arcs[u][v] = in.nextInt();
-		}
-
+	
+	public void setVexNum(int vexNum) {
+		this.vexNum = vexNum;
 	}
 
-	// 创建有向图
-	public void createDG() {
-		System.out.println("请分别输入图的顶点数，图的边数");
-		vexNum = in.nextInt();
-		arcNum = in.nextInt();
-		vexs = (AnyType[]) new String[vexNum];
-		System.out.println("请分别输入图的各个顶点");
-		for (int v = 0; v < vexNum; v++)// 构造顶点向量
-			vexs[v] = (AnyType)in.next();
-		arcs = new int[vexNum][vexNum];
-		for (int v = 0; v < vexNum; v++)
-			for (int u = 0; u < vexNum; u++)
-				arcs[v][u] = INFINITY;
-		System.out.println("请输入各个边的两个顶点及其权值");
-		for (int k = 0; k < arcNum; k++) {
-			int v = locateVex((AnyType)in.next());// 得到顶点的下标
-			int u = locateVex((AnyType)in.next());
-			arcs[v][u] = in.nextInt();
-		}
+	public void setArcNum(int arcNum) {
+		this.arcNum = arcNum;
+	}
+
+	public void setVexs(AnyType[] vexs) {
+		this.vexs = vexs;
+	}
+
+	public void setArcs(int[][] arcs) {
+		this.arcs = arcs;
 	}
 
 	// 返回边数
@@ -84,7 +55,6 @@ public class MyGraph<AnyType extends Comparable<?super AnyType>> {
 		for (int v = 0; v < vexNum; v++){
 			//System.out.println("vex"+vexs[v]);
 			if (vexs[v].toString().equals(vex.toString()))
-		
 				return v;
 		}
 		return -1;
@@ -95,17 +65,14 @@ public class MyGraph<AnyType extends Comparable<?super AnyType>> {
 		isValid_V(v);
 		return vexs[v];
 	}
-
 	// 返回第一个邻接点，若v没有邻接点则返回-1，其中0<=v,w<vexNum;
-	public int firstAdjVex(int v) throws Exception {// 假若顶点v 和顶点w 之间存在一条边， 则称顶点v
-													// 和w 互为邻接点。
+	public int firstAdjVex(int v) throws Exception {// 假若顶点v 和顶点w 之间存在一条边， 则称顶点v										// 和w 互为邻接点。
 		isValid_V(v);
 		for (int j = 0; j < vexNum; j++)
 			if (arcs[v][j] != 0 && arcs[v][j] < INFINITY)
 				return j;
 		return -1;
 	}
-
 	// 返回v相对于w的下一个邻接点，若w是v的最后一个邻接点，则返回-1，其中0<=v,w<vexNum
 	public int nextAdjVex(int v, int w) throws Exception {
 		isValid_V(v);
@@ -114,7 +81,6 @@ public class MyGraph<AnyType extends Comparable<?super AnyType>> {
 				return j;
 		return -1;
 	}
-
 	// 求某个点的度
 	public int getDegree(AnyType v) throws Exception {
 		int k = 0, s = 0;
@@ -126,22 +92,41 @@ public class MyGraph<AnyType extends Comparable<?super AnyType>> {
 			int u = locateVex(i);
 			for (int w = firstAdjVex(u); w >= 0; w = nextAdjVex(u, w))
 				if (vexs[w].toString().compareTo(v.toString())==0)
-					s++;
-					//System.out.println("to"+v.toString());		
+					s++;	
 		}
 		return s;
-
 	}
 	
-
 	public static void main(String[] args) throws Exception {
+		Scanner in = new Scanner(System.in);
+		
 		/**
-		 * v1 v2 v3 v4 v1 v2 1 v2 v3 1 v2 v4 1 v3 v4 1
-		 * 1 2 3 4 1 2 1 2 3 1 2 4 1 3 4 1
+		 * v1 v2 v3 v4 v1 v2 1 v2 v3 1 v2 v4 1 v3 v4 1 1 2 3 4 1 2 1 2 3 1 2 4 1
+		 * 3 4 1
 		 */
 		MyGraph<String> myGraph = new MyGraph<String>();
-		Scanner in = new Scanner(System.in);
-		myGraph.createDG();
+		System.out.println("请分别输入图的顶点数，图的边数");
+		int vexNum = in.nextInt();
+		int arcNum = in.nextInt();
+		myGraph.setVexNum(vexNum);
+		myGraph.setArcNum(arcNum);
+		String []vexs =  new String[vexNum];
+		System.out.println("请分别输入图的各个顶点");
+		for (int v = 0; v < vexNum; v++)// 构造顶点向量
+			vexs[v] = in.next();
+		myGraph.setVexs(vexs);
+		int [][]arcs = new int[vexNum][vexNum];
+		for (int v = 0; v < vexNum; v++)
+			for (int u = 0; u < vexNum; u++)
+				arcs[v][u] = INFINITY;
+		System.out.println("请输入各个边的两个顶点及其权值");
+		for (int k = 0; k < arcNum; k++) {
+			int v = myGraph.locateVex(in.next());// 得到顶点的下标
+			int u = myGraph.locateVex(in.next());
+			arcs[v][u] = in.nextInt();
+		}
+		myGraph.setArcs(arcs);
+		
 		System.out.println("输出结束");
 		System.out.println(myGraph.firstAdjVex(1));
 		System.out.println(myGraph.nextAdjVex(1, 2));
