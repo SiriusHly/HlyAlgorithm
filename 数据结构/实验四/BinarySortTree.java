@@ -1,113 +1,90 @@
 package 实验四;
+/*
+ * author：黄良运
+ * time：12.10
+ */
 
-import one_排序.ElementType;
-import one_排序.KeyType;
-import one_排序.RecordNode;
-
-public class BinarySortTree {
-	BiTreeNode root;
+public class BinarySortTree<AnyType extends Comparable<?super AnyType>> {
+	BiTreeNode<AnyType> root;
 
 	public BinarySortTree() {
 		root = null;
 	}
 
-	public void inOrderTraverse(BiTreeNode p) {
+	public void inOrderTraverse(BiTreeNode<AnyType> p) {
 		if (p != null) {
 			inOrderTraverse(p.lchild);
-			System.out.print(((RecordNode) p.data).element + " ");// ??
+			System.out.print(p.data+" ");// ??
 			inOrderTraverse(p.rchild);
 		}
 	}
 
-	// 递归算法
-	public Object searchBST(Comparable key) {
-		if (key == null || !(key instanceof Comparable)) {// 不能插入空对象或者不可比较大小的对象
-			System.out.println("哦哦");
-			return null;
-		}
-		System.out.println("好好");
-		return searchBST(root, key);
-
-	}
-
 	// 二叉树查找算法
-	private Object searchBST(BiTreeNode p, Comparable key) {
+	private AnyType searchBST(BiTreeNode<AnyType> p,AnyType key) {
 		if (p != null) {
-			if (key.compareTo(((RecordNode) p.data).key) == 0) {
-
-				System.out.println("输出2");
-				System.out.println(((RecordNode) p.data).key);
+			if (key.compareTo(p.data) == 0) {
 				return p.data;
 			}
-			if (key.compareTo(((RecordNode) p.data).key) < 0) {
+			if (key.compareTo(p.data) < 0) {
 				return searchBST(p.lchild, key);
 			} else {
 				return searchBST(p.rchild, key);
 			}
 		}
-		System.out.println("什么");
 		return null;
-
 	}
 
 	// 插入算法
-	public boolean insertBST(Comparable key, Object theElement) {
-		if (key == null || !(key instanceof Comparable))
+	public boolean insertBST(AnyType key) {
+		if (key == null)
 			return false;
 		if (root == null) {
-			root = new BiTreeNode(new RecordNode(key, theElement));
+			root = new BiTreeNode<AnyType>(key);
 			return true;
 		}
-		return insertBST(root, key, theElement);
-
+		return insertBST(root, key);
 	}
 
-	// 将关键字值为key，数据元素为theElment的结点插入到以p为根的二叉排序树中的递归算法
-	private boolean insertBST(BiTreeNode p, Comparable key, Object theElment) {
-		if (key.compareTo(((RecordNode) p.data).key) == 0)
+	private boolean insertBST(BiTreeNode<AnyType>p, AnyType key) {
+		if (key.compareTo(p.data) == 0)
 			return false;// 不插入关键字重复的结点
-		if (key.compareTo(((RecordNode) p.data).key) < 0) {
-			System.out.println("插入");
+		if (key.compareTo(p.data) < 0) {
 			if (p.lchild == null) {
-				p.lchild = new BiTreeNode(new RecordNode(key, theElment));// key
-																			// =keyType
-																			// >int
+				p.lchild = new BiTreeNode<AnyType>(key);// key
 				return true;
 			} else {
-				return insertBST(p.lchild, key, theElment);
+				return insertBST(p.lchild, key);
 			}
 		} else if (p.rchild == null) {
-			p.rchild = new BiTreeNode(new RecordNode(key, theElment));
+			p.rchild = new BiTreeNode<AnyType>(key);
 			return true;
 		} else {
-			return insertBST(p.rchild, key, theElment);
+			return insertBST(p.rchild, key);
 		}
-
 	}
 
 	// 二叉排序树的删除排序
-	public Object removeBST(Comparable key) {
-		if (root == null || key == null || !(key instanceof Comparable)) {
+	public AnyType removeBST(AnyType key) {
+		if (root == null || key == null) {
 			return null;
 		}
 		return removeBST(root, key, null);
 	}
 
-	// 删除关键字值为elemkey的结点，parent是p的父结点,p为根
-	public Object removeBST(BiTreeNode p, Comparable elemkey, BiTreeNode parent) {
+	public AnyType removeBST(BiTreeNode<AnyType> p, AnyType elemkey, BiTreeNode<AnyType> parent) {
 		if (p != null) {
-			if (elemkey.compareTo(((RecordNode) p.data).key) < 0) {
+			if (elemkey.compareTo(p.data) < 0) {
 				return removeBST(p.lchild, elemkey, p);// 在左子树中递归
-			} else if (elemkey.compareTo(((RecordNode) p.data).key) > 0) {
+			} else if (elemkey.compareTo(p.data) > 0) {
 				return removeBST(p.rchild, elemkey, p);
 			} else if (p.lchild != null && p.rchild != null) {
 				// 相等且该结点有左子树
-				BiTreeNode innext = p.rchild;// 寻找p在中跟次序下的后继结点innext
+				BiTreeNode<AnyType> innext = p.rchild;// 寻找p在中跟次序下的后继结点innext
 				while (innext.lchild != null) {// 寻找右子树中最左的孩子
 					innext = innext.lchild;
 				}
 				p.data = innext.data;// 后继结点替换p
-				return removeBST(p.rchild, ((RecordNode) p.data).key, p);
+				return removeBST(p.rchild, p.data, p);
 			} else {// p是1度和叶子结点
 				if (parent == null) {// 删除根结点，即p==root
 					if (p.lchild != null) {
@@ -115,7 +92,7 @@ public class BinarySortTree {
 					} else {
 						root = p.rchild;
 					}
-					System.out.println("删");
+	
 					return p.data;
 				}
 				if (p == parent.lchild) {
@@ -129,65 +106,48 @@ public class BinarySortTree {
 				} else {
 					parent.rchild = p.rchild;
 				}
-				System.out.println("删2");
 				return p.data;
 			}
 		}
 		return null;
 	}
 
-	public static class BiTreeNode {
-		Object data;
-		BiTreeNode lchild, rchild;
+	public static class BiTreeNode<AnyType extends Comparable<?super AnyType>> {
+		AnyType data;
+		BiTreeNode<AnyType> lchild, rchild;
 
 		public BiTreeNode() {
 			this(null);
 		}
-
-		public BiTreeNode(Object data) {
+		public BiTreeNode(AnyType data) {
 			this(data, null, null);
 		}
-
-		public BiTreeNode(Object data, BiTreeNode lchild, BiTreeNode rchild) {
+		public BiTreeNode(AnyType data, BiTreeNode<AnyType> lchild, BiTreeNode<AnyType> rchild) {
 			this.data = data;
 			this.lchild = lchild;
 			this.rchild = rchild;
 		}
-
 	}
 
-	public static void main(String[] arv) {
-		BinarySortTree BS = new BinarySortTree();
-		int[] k = { 50, 13, 63, 8, 36, 90, 5, 10, 18, 70 };// 关键字数组
-		String[] item = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", };// 数据元素
-		KeyType[] key = new KeyType[k.length];
-		ElementType[] elem = new ElementType[k.length];
+	public static void main(String[] args) {
+		BinarySortTree<Integer> BS = new BinarySortTree<Integer>();
+		//int[] k = { 45, 24, 53, 12, 37, 9 };// 关键字数组
+		int[] k = { 49,12,65,8,35,5,10,15,88,68};// 关键字数组
+		//String[] item = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", };// 数据元素
 		for (int i = 0; i < k.length; i++) {
-			key[i] = new KeyType(k[i]);
-			elem[i] = new ElementType(item[i]);
-			if (BS.insertBST(key[i], elem[i])) {
-				System.out.println(key[i].key + " " + elem[i] + " " + key[i].toString());
+			if (BS.insertBST(k[i])) {
+				System.out.println(k[i]+" ");
 			}
-
 		}
-
 		System.out.println("中序遍历");
 		BS.inOrderTraverse(BS.root);
 		System.out.println();
-		KeyType keyValue = new KeyType();
-		keyValue.key = 10;
-		// int s=(int)BS.searchBST(keyValue);
-		RecordNode found = (RecordNode) BS.searchBST(keyValue);
-		// System.out.println("查找到的关键码："+found.key+"对应的姓氏为:"+found.element);
-		System.out.println("查找到的关键码：" + found + " " + keyValue.key + " " + keyValue);
-
-		keyValue.key = 13;
-		found = (RecordNode) BS.removeBST(keyValue);
-		if (found != null) {
-			System.out.println("删除的关键码：" + keyValue.key + "对应的姓氏为:" + found.element + found);
-		} else {
-			System.out.println("删除失败");
-		}
-
+		//System.out.println(BS.insertBST(53));
+		BS.inOrderTraverse(BS.root);
+		System.out.println();
+		System.out.println(BS.removeBST(12));
+		BS.inOrderTraverse(BS.root);
+		System.out.println();
+		System.out.println(BS.searchBST(BS.root, 9));
 	}
 }

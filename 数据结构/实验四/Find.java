@@ -1,6 +1,4 @@
 package 实验四;
-
-import java.util.Scanner;
 /*
  * author:黄良运
  * time：2017.12.6
@@ -14,7 +12,7 @@ public class Find<AnyType extends Comparable<? super AnyType>> {
 		high = Arr.length - 1;
 		while (low <= high) {
 			mid = (low + high) / 2;
-			System.out.println("mid: "+mid+" low: "+low+" high: "+high);
+			System.out.println("mid: "+mid+"Arr[mid]: "+Arr[mid]+" low: "+low+" high: "+high);
 			if (Arr[mid].compareTo(x) == 0)
 				return mid;
 			else if (Arr[mid].compareTo(x) > 0)
@@ -26,12 +24,10 @@ public class Find<AnyType extends Comparable<? super AnyType>> {
 	}
 	
 	public static void main(String []y){
-		Scanner in  = new Scanner(System.in);
+		//Scanner in  = new Scanner(System.in);
 		Integer Arr[] = {5,14,18,21,23,29,31,35};
 		Find<Integer> find = new Find<Integer>();
-		System.out.println(find.search(Arr, 23)+": "+Arr[find.search(Arr, 23)]);
-		
-				
+		System.out.println(find.search(Arr, 23)+": "+Arr[find.search(Arr, 23)]);		
 	}
 
 }
