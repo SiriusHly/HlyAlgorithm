@@ -92,11 +92,10 @@ public class BinarySortTree<AnyType extends Comparable<?super AnyType>> {
 					} else {
 						root = p.rchild;
 					}
-	
 					return p.data;
 				}
 				if (p == parent.lchild) {
-					if (p.lchild == null) {
+					if (p.lchild != null) {
 						parent.lchild = p.lchild;
 					} else {
 						parent.lchild = p.rchild;

@@ -27,17 +27,30 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 		arc.nextArc = vexs[v].firstArc;
 		vexs[v].firstArc = arc;
 	}
+	
+	//删除一条弧
+	public void deleteArc(AnyType v1,AnyType v2) throws Exception{
+		int v = locateVex(v1);
+		int u = locateVex(v2);
+		//System.out.println(v+" "+u);
+		VNode<AnyType> vex = vexs[v];
+		for(ArcNode<AnyType> arc = vex.firstArc;arc!=null;arc = arc.nextArc)
+			if(vexs[arc.adjVex].equals(vexs[u])){
+				System.out.println("de"+vexs[u].data);
+				arc = arc.nextArc;
+			}
+	}
 
 	public void isValid_V(int v) throws Exception {
 		if (v < 0 || v >= vexNum)
 			throw new Exception("第" + v + "个顶点不存在");
 	}
 
-	public int locateVex(AnyType vex) {
+	public int locateVex(AnyType vex) throws Exception {
 		for (int v = 0; v < vexNum; v++)
 			if (vexs[v].data.toString().compareTo(vex.toString())==0)
 				return v;
-		return -1;
+		throw new Exception(vex+"这个顶点不存在");
 	}
 
 	public int getVexNum() {
@@ -95,7 +108,7 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 			return -1;
 	}
 
-	public int getDegree(AnyType vex) {
+	public int getDegree(AnyType vex) throws Exception {
 		int i=locateVex(vex);
 		VNode<AnyType> v = vexs[i];
 		int count = 0;
@@ -128,12 +141,40 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 			this.firstArc = firstArc;
 		}
 	}
+	
+	//增加顶点
+	public boolean addVex(AnyType vex){
+		vexs[vexNum] =  new VNode<AnyType>(vex);
+		vexs[vexNum].firstArc = null;
+		vexNum++;
+		return true;
+	}
+	//删除顶点
+	public boolean deleteVex(AnyType vex) throws Exception{
+		int i = locateVex(vex);//数据的vexs.data下标
+		VNode<AnyType> v = vexs[i];//得到节点的位置
+		//删除其他与该顶点相关的顶点
+		for(VNode<AnyType> u :vexs)
+			for(ArcNode<AnyType> arc = u.firstArc;arc!=null;arc = arc.nextArc)
+				if(vexs[arc.adjVex].equals(v)){
+					System.out.println("de"+vex);
+					arc.nextArc = arc.nextArc.nextArc;
+				}
+			
+		
+		
+		for(int j = i;j<vexNum-1;j++)
+			vexs[j] = vexs[j+1];
+				vexNum--;
+		
+		return true;
+	}
 
 	// 图中邻接表存储结构表示中的边节点类
 	public static class ArcNode<AnyType> {
 		public int adjVex;// 该弧指向顶点的位置
 		public int value;// 边的权值
-		private ArcNode<AnyType> nextArc;// 指向下一条弧
+		private ArcNode<AnyType> nextArc=null;// 指向下一条弧
 
 		public ArcNode() {
 			this(-1, 0, null);
@@ -182,6 +223,10 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 		System.out.println(alGraph.firstAdjVex(2));
 		System.out.println(alGraph.nextAdjVex(1, 2));
 		System.out.println();
+		//alGraph.deleteVex("v3");
+		//alGraph.deleteVex("v2");
+		//alGraph.addVex("v5");
+		alGraph.deleteArc("v2","v4");
 		System.out.println("请输入要查找的结点");
 		while (in.hasNext()) {// 0 1;1 3;2 2;3 2
 			String v = in.next(); 

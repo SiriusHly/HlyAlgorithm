@@ -93,6 +93,8 @@ public class DoubleCircleLinkedList<AnyType> {
 		}
 		Node<AnyType> q = getNode(index);
 		Node<AnyType> p = new Node<>(data,q.prevNode,q);
+		//p.prevNode = q.prevNode;
+		//p.nextNode = q;
 		q.prevNode.nextNode=p;
 		q.prevNode=p;
 		size++;
