@@ -12,7 +12,7 @@ public class Find<AnyType extends Comparable<? super AnyType>> {
 		high = Arr.length - 1;
 		while (low <= high) {
 			mid = (low + high) / 2;
-			System.out.println("mid: "+mid+"Arr[mid]: "+Arr[mid]+" low: "+low+" high: "+high);
+			//System.out.println("mid: "+mid+"Arr[mid]: "+Arr[mid]+" low: "+low+" high: "+high);
 			if (Arr[mid].compareTo(x) == 0)
 				return mid;
 			else if (Arr[mid].compareTo(x) > 0)

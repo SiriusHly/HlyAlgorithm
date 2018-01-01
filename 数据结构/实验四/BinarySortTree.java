@@ -5,6 +5,22 @@ package 实验四;
  */
 
 public class BinarySortTree<AnyType extends Comparable<?super AnyType>> {
+	public static class BiTreeNode<AnyType> {
+		AnyType data;
+		BiTreeNode<AnyType> lchild, rchild;
+
+		public BiTreeNode() {
+			this(null);
+		}
+		public BiTreeNode(AnyType data) {
+			this(data, null, null);
+		}
+		public BiTreeNode(AnyType data, BiTreeNode<AnyType> lchild, BiTreeNode<AnyType> rchild) {
+			this.data = data;
+			this.lchild = lchild;
+			this.rchild = rchild;
+		}
+	}
 	BiTreeNode<AnyType> root;
 
 	public BinarySortTree() {
@@ -111,27 +127,12 @@ public class BinarySortTree<AnyType extends Comparable<?super AnyType>> {
 		return null;
 	}
 
-	public static class BiTreeNode<AnyType extends Comparable<?super AnyType>> {
-		AnyType data;
-		BiTreeNode<AnyType> lchild, rchild;
-
-		public BiTreeNode() {
-			this(null);
-		}
-		public BiTreeNode(AnyType data) {
-			this(data, null, null);
-		}
-		public BiTreeNode(AnyType data, BiTreeNode<AnyType> lchild, BiTreeNode<AnyType> rchild) {
-			this.data = data;
-			this.lchild = lchild;
-			this.rchild = rchild;
-		}
-	}
+	
 
 	public static void main(String[] args) {
 		BinarySortTree<Integer> BS = new BinarySortTree<Integer>();
-		//int[] k = { 45, 24, 53, 12, 37, 9 };// 关键字数组
-		int[] k = { 49,12,65,8,35,5,10,15,88,68};// 关键字数组
+		int[] k = { 45, 24, 53, 12, 37, 9 };// 关键字数组
+		//int[] k = { 49,12,65,8,35,5,10,15,88,68};// 关键字数组
 		//String[] item = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", };// 数据元素
 		for (int i = 0; i < k.length; i++) {
 			if (BS.insertBST(k[i])) {
@@ -141,10 +142,10 @@ public class BinarySortTree<AnyType extends Comparable<?super AnyType>> {
 		System.out.println("中序遍历");
 		BS.inOrderTraverse(BS.root);
 		System.out.println();
-		//System.out.println(BS.insertBST(53));
+		System.out.println(BS.insertBST(13));
 		BS.inOrderTraverse(BS.root);
 		System.out.println();
-		System.out.println(BS.removeBST(12));
+		System.out.println(BS.removeBST(24));
 		BS.inOrderTraverse(BS.root);
 		System.out.println();
 		System.out.println(BS.searchBST(BS.root, 9));
