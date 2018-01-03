@@ -1,5 +1,7 @@
 package one_排序;
 
+import java.util.ArrayList;
+
 /*
  * 2017.12.9
  * author 黄良运
@@ -211,6 +213,26 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 			s*=2;
 		}
 	}
+	//链式基数排序
+	public ArrayList<Integer> RadixSort(ArrayList<Integer> Arr,int d){
+		ArrayList<Integer> []A = new ArrayList[10]; 
+		for(int w =0;w<A.length;w++)
+			A[w]= new ArrayList<>();
+		for(int i = 0;i<d;i++){
+			for(int w =0;w<A.length;w++)
+				A[w].clear();
+			for(int k=0;k<Arr.size();k++){
+				int j =(int) (Arr.get(k)/Math.pow(10, i)%10);
+				A[j].add(Arr.get(k));
+			}
+			Arr.clear();
+			for(int f = 0;f<A.length;f++){
+				Arr.addAll(A[f]);
+			}
+		}
+		return Arr;
+		
+	}
 
 	private void display(AnyType[] Arr) {
 		for (int i = 0; i < Arr.length; i++)
@@ -223,13 +245,22 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 		int[] d = { 2, 1 };
 		Integer[] Arr = new Integer[30000];
 		//Integer[] Arr = {5, 4, 6, 2};
-		//Integer[] Arr2 = {5, 4, 6, 2, 9, 7, 4, 5, 2, 33, 44, 77, 88};
-		
+		Integer[] Arr2 = {5, 4, 6, 2, 9, 7, 4, 5, 2, 33, 44, 77, 88};
+		ArrayList<Integer> Arr3 = new ArrayList<Integer>();
+		/*Arr3.add(51);
+		Arr3.add(24);
+		Arr3.add(36);
+		*/
+		for(int i=0;i<300;i++)
+			Arr3.add((int)(Math.random()*30000+1));
+		//Arr3 = (ArrayList<Integer>) Arrays.asList(Arr2);
+
 		for(int i = 0;i<30000;i++)
 			Arr[i] = (int)(Math.random()*30000+1);//1-100
 		int begin = (int) System.currentTimeMillis();
 		System.out.println(begin);
-		mySort.mergeSort(Arr);//6-27
+		Arr3 = mySort.RadixSort(Arr3, 5);//28-31
+		//mySort.mergeSort(Arr);//6-27
 		//mySort.shellSort(d, Arr);//1149=1443
 		//mySort.InsertSort(Arr);//1558-2700
 		//mySort.bubbleSort(Arr);//10318
@@ -238,7 +269,9 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 		//mySort.heapSort(Arr);//18-32
 		//mySort.display(Arr);
 		//mySort.InsertSortWithGuard(Arr);//1273-1368
-		System.out.println((int) (System.currentTimeMillis()-begin));
+		System.out.println("共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		for(int i:Arr3)
+			System.out.print(i+" ");
 	}
 
 }

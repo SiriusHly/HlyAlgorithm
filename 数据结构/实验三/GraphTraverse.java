@@ -25,7 +25,7 @@ public class GraphTraverse {
 
 	private static void BFS(ALGraph G, int v) throws Exception {
 		visited[v] = true;
-		System.out.print(G.getVex(v).toString() + " ");// 返回节点的值
+		System.out.print(G.getVex(v).toString() + " ");// 返回节点的值  
 		Queue<Integer> Q = new LinkedList<>();// 辅助队列Q
 		Q.offer(v);// v入队
 		while (!Q.isEmpty()) {

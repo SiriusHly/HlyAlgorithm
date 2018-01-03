@@ -41,8 +41,12 @@ public class MyFloyd {
 	}
 	public static void  display(int [][]D){
 		for(int i = 0;i<D.length;i++){
-			for(int j = 0;j<D.length;j++)
+			for(int j = 0;j<D.length;j++){
+				if(i!=j&&D[i][j]==0)
+					System.out.print(c[i]+"到"+c[j]+"的最短路径为: "+"MAX"+"  ");
+				else
 				System.out.print(c[i]+"到"+c[j]+"的最短路径为: "+D[i][j]+"    ");
+			}
 		System.out.println();
 		}
 	}
@@ -64,11 +68,11 @@ public class MyFloyd {
 		Floyd(areas);
 		display(D);
 		//System.out.println("请输入要查询的两个城市名称：");
-		System.out.println("这两座城市之间的最短距离为："+D[search("B")][search("C")]);
+		System.out.println("BC这两座城市之间的最短距离为："+D[search("B")][search("C")]);
 		while(in.hasNext()){
 		String n = in.next();
 		String m = in.next();
-		System.out.println("这两座城市之间的最短距离为："+D[search(n)][search(m)]);
+		System.out.println(n+m+"这两座城市之间的最短距离为："+D[search(n)][search(m)]);
 		}
 		in.close();
 	}

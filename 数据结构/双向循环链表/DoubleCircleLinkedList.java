@@ -137,7 +137,7 @@ public class DoubleCircleLinkedList<AnyType> {
 			k =q.nextNode;
 			q.nextNode = p;
 			p.prevNode = q;
-			p = q;//p没用了，把q给p
+			p = q;
 			q = k;
 		}
 		q.nextNode = p;
@@ -155,10 +155,10 @@ public class DoubleCircleLinkedList<AnyType> {
 		La.display();
 		La.inverse();
 		La.display();
-		System.out.println("第0个节点前驱"+La.getNode(0).prevNode.data);
-		System.out.println("第3个节点前驱"+La.getNode(3).data);
-		System.out.println("大小"+La.size());
-		La.remove(4);
+		//System.out.println("第0个节点前驱"+La.getNode(0).prevNode.data);
+		//System.out.println("第3个节点前驱"+La.getNode(3).data);
+		//System.out.println("大小"+La.size());
+		//La.remove(4);
 		La.display();
 		La.insert(3,88);
 		La.display();

@@ -1,5 +1,7 @@
 package seven_Graph;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 /*
@@ -7,10 +9,11 @@ import java.util.Scanner;
  * time:2017.12.7
  * 邻接表存储结构
  */
-public class ALGraph<AnyType extends Comparable<?super AnyType>> {
+public class ALGraph<AnyType extends Comparable<? super AnyType>> {
 	private int vexNum, arcNum;// 图的顶点和边数
 	private VNode<AnyType>[] vexs;
-	
+	static boolean visit[];
+
 	public ALGraph(int vexNum, int arcNum, VNode<AnyType>[] vexs) {
 		this.vexNum = vexNum;
 		this.arcNum = arcNum;
@@ -18,25 +21,27 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 	}
 
 	public ALGraph() {
-		this( 0, 0, null);
+		this(0, 0, null);
 	}
 
 	// 在顶点v，u之间添加一条弧，其权值为value
 	public void addArc(int v, int u, int value) {// u该弧所指向的顶点位置，该顶点的位置
-		ArcNode<AnyType> arc = new ArcNode<AnyType>(u, value);// v1 v2 1 v2 v3 1 v2 v4 1 v3 v4 1
+		ArcNode<AnyType> arc = new ArcNode<AnyType>(u, value);// v1 v2 1 v2 v3 1
+																// v2 v4 1 v3 v4
+																// 1
 		arc.nextArc = vexs[v].firstArc;
 		vexs[v].firstArc = arc;
 	}
-	
-	//删除一条弧
-	public void deleteArc(AnyType v1,AnyType v2) throws Exception{
+
+	// 删除一条弧
+	public void deleteArc(AnyType v1, AnyType v2) throws Exception {
 		int v = locateVex(v1);
 		int u = locateVex(v2);
-		//System.out.println(v+" "+u);
+		// System.out.println(v+" "+u);
 		VNode<AnyType> vex = vexs[v];
-		for(ArcNode<AnyType> arc = vex.firstArc;arc!=null;arc = arc.nextArc)
-			if(vexs[arc.adjVex].equals(vexs[u])){
-				System.out.println("de"+vexs[u].data);
+		for (ArcNode<AnyType> arc = vex.firstArc; arc != null; arc = arc.nextArc)
+			if (vexs[arc.adjVex].equals(vexs[u])) {
+				System.out.println("de" + vexs[u].data);
 				arc = arc.nextArc;
 			}
 	}
@@ -48,9 +53,9 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 
 	public int locateVex(AnyType vex) throws Exception {
 		for (int v = 0; v < vexNum; v++)
-			if (vexs[v].data.toString().compareTo(vex.toString())==0)
+			if (vexs[v].data.toString().compareTo(vex.toString()) == 0)
 				return v;
-		throw new Exception(vex+"这个顶点不存在");
+		throw new Exception(vex + "这个顶点不存在");
 	}
 
 	public int getVexNum() {
@@ -109,72 +114,114 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 	}
 
 	public int getDegree(AnyType vex) throws Exception {
-		int i=locateVex(vex);
+		int i = locateVex(vex);
 		VNode<AnyType> v = vexs[i];
 		int count = 0;
-		
+
 		for (ArcNode<AnyType> arc = v.firstArc; arc != null; arc = arc.nextArc)
 			count++;
-		
+
 		for (VNode<AnyType> u : vexs)
 			for (ArcNode<AnyType> arc = u.firstArc; arc != null; arc = arc.nextArc)
-				if (vexs[arc.adjVex].equals(v))//arc.adjVex弧指向顶点的位置
+				if (vexs[arc.adjVex].equals(v))// arc.adjVex弧指向顶点的位置
 					count++;
 		return count;
 	}
 
-	// 图的邻接表存储结构表示中的顶点节点类
-	public static class VNode<AnyType> {
-		public AnyType data;// 顶点信息
-		public ArcNode<AnyType> firstArc;// 指向第一条依附于该顶点的弧
-
-		public VNode() {
-			this(null, null);
-		}
-
-		public VNode(AnyType data) {
-			this(data, null);
-		}
-
-		public VNode(AnyType data, ArcNode<AnyType> firstArc) {
-			this.data = data;
-			this.firstArc = firstArc;
-		}
-	}
-	
-	//增加顶点
-	public boolean addVex(AnyType vex){
-		vexs[vexNum] =  new VNode<AnyType>(vex);
+	// 增加顶点
+	public boolean addVex(AnyType vex) {
+		vexs[vexNum] = new VNode<AnyType>(vex);
 		vexs[vexNum].firstArc = null;
 		vexNum++;
 		return true;
 	}
-	//删除顶点
-	public boolean deleteVex(AnyType vex) throws Exception{
-		int i = locateVex(vex);//数据的vexs.data下标
-		VNode<AnyType> v = vexs[i];//得到节点的位置
-		//删除其他与该顶点相关的顶点
-		for(VNode<AnyType> u :vexs)
-			for(ArcNode<AnyType> arc = u.firstArc;arc!=null;arc = arc.nextArc)
-				if(vexs[arc.adjVex].equals(v)){
-					System.out.println("de"+vex);
+
+	// 删除顶点
+	public boolean deleteVex(AnyType vex) throws Exception {
+		int i = locateVex(vex);// 数据的vexs.data下标
+		VNode<AnyType> v = vexs[i];// 得到节点的位置
+		// 删除其他与该顶点相关的顶点
+		for (VNode<AnyType> u : vexs)
+			for (ArcNode<AnyType> arc = u.firstArc; arc != null; arc = arc.nextArc)
+				if (vexs[arc.adjVex].equals(v)) {
+					System.out.println("de" + vex);
 					arc.nextArc = arc.nextArc.nextArc;
 				}
-			
-		
-		
-		for(int j = i;j<vexNum-1;j++)
-			vexs[j] = vexs[j+1];
-				vexNum--;
-		
+
+		for (int j = i; j < vexNum - 1; j++)
+			vexs[j] = vexs[j + 1];
+		vexNum--;
+
 		return true;
 	}
+
+	// 判断连通性，求连通分量
+	public void connectDFS(ALGraph<AnyType> G, int v) throws Exception {
+		visit[v] = true;
+		for (int w = G.firstAdjVex(v); w >= 0; w = G.nextAdjVex(v, w)) {
+			if (!visit[w])
+				connectDFS(G, w);
+		}
+	}
+
+	public int connect(ALGraph<AnyType> G) throws Exception {
+		visit = new boolean[G.getVexNum()];
+		for (boolean i : visit)
+			i = false;
+		int count = 0;
+		for (int i = 0; i < G.getVexNum(); i++) {
+			if (!visit[i]) {
+				count++;
+				connectDFS(G, i);
+			}
+		}
+		return count;
+	}
+	//判断两点之间是否存在路径
+	public boolean pathDFS(ALGraph<AnyType> G, AnyType A, AnyType B) throws Exception {
+		int v = locateVex(A);
+		int u = locateVex(B);
+		visit = new boolean[G.getVexNum()];
+		for (boolean i : visit)
+			i = false;
+		connectDFS(G, v);
+		if (visit[v] == visit[u] == true) {
+			return true;
+		}
+		return false;
+	}
+	
+	//广度优先遍历求最简单路径
+		public int[] pathBFS(ALGraph<AnyType> G,AnyType A,AnyType B) throws Exception{
+			int parent [] = new int [G.getVexNum()];
+			int v = locateVex(A);
+			int u = locateVex(B);
+			boolean flag =false;
+			/*visit = new boolean[G.getVexNum()];
+			Arrays.fill(visit, false);*/
+			Queue<Integer> queue = new LinkedList<Integer>();
+			queue.offer(v);
+			while(!queue.isEmpty()&&!flag){
+				int i = queue.poll();
+				for(int w = G.firstAdjVex(i);w>=0;w = G.nextAdjVex(i, w)){
+					if(u ==w){
+						parent[w] =i;
+						flag = true;
+						break;	
+					}
+					else
+					parent[w] = i;
+					queue.offer(w);
+				}	
+			}
+			return parent;
+		}
 
 	// 图中邻接表存储结构表示中的边节点类
 	public static class ArcNode<AnyType> {
 		public int adjVex;// 该弧指向顶点的位置
 		public int value;// 边的权值
-		private ArcNode<AnyType> nextArc=null;// 指向下一条弧
+		private ArcNode<AnyType> nextArc = null;// 指向下一条弧
 
 		public ArcNode() {
 			this(-1, 0, null);
@@ -195,12 +242,32 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 			this.nextArc = nextArc;
 		}
 	}
+
+	// 图的邻接表存储结构表示中的顶点节点类
+	public static class VNode<AnyType> {
+		public AnyType data;// 顶点信息
+		public ArcNode<AnyType> firstArc;// 指向第一条依附于该顶点的弧
+
+		public VNode() {
+			this(null, null);
+		}
+
+		public VNode(AnyType data) {
+			this(data, null);
+		}
+
+		public VNode(AnyType data, ArcNode<AnyType> firstArc) {
+			this.data = data;
+			this.firstArc = firstArc;
+		}
+	}
+
 	public static void main(String[] y) throws Exception {
 		Scanner in = new Scanner(System.in);
 		ALGraph<String> alGraph = new ALGraph<String>();
 		/**
-		 * v1 v2 v3 v4 v1 v2 1 v2 v4 1 v2 v3 1 v3 v4 1 //头插注意顺序
-		 * 1 2 3 4 1 2 1 2 4 1 2 3 1 3 4 1 
+		 * v1 v2 v3 v4 v1 v2 1 v2 v4 1 v2 v3 1 v3 v4 1 //头插注意顺序 1 2 3 4 1 2 1 2
+		 * 4 1 2 3 1 3 4 1
 		 */
 		System.out.println("请输入图的顶点数，图的边数");
 		int vexNum = in.nextInt();
@@ -219,21 +286,39 @@ public class ALGraph<AnyType extends Comparable<?super AnyType>> {
 			int value = in.nextInt();// 权值
 			alGraph.addArc(v, u, value);
 		}
-		
+
 		System.out.println(alGraph.firstAdjVex(2));
 		System.out.println(alGraph.nextAdjVex(1, 2));
 		System.out.println();
-		//alGraph.deleteVex("v3");
-		//alGraph.deleteVex("v2");
-		//alGraph.addVex("v5");
-		alGraph.deleteArc("v2","v4");
+		// alGraph.deleteVex("v3");
+		// alGraph.deleteVex("v2");
+		// alGraph.addVex("v5");
+		// alGraph.deleteArc("v2","v4");
+		// 判断图的连通性，求图的连通分量
+		System.out.println("该图的连通分量个数为:" + alGraph.connect(alGraph) + "个");
+		// 深度优先判断两点是否存在路径
+		System.out.println(alGraph.pathDFS(alGraph, "v1", "v2"));
+		System.out.println(alGraph.pathDFS(alGraph, "v2", "v3"));
+		//输出一条简单路径
+				System.out.println("简单路径为:");
+				int parent [] = alGraph.pathBFS(alGraph, "v1", "v4");
+				int v = alGraph.locateVex("v1");
+				int u = alGraph.locateVex("v4");
+				int i =u;
+				System.out.print("v4");
+				while(i!=v){
+					System.out.print("->");
+					System.out.print(vexs[parent[i]].data);
+					i = parent[i];
+				}
+				System.out.println();
 		System.out.println("请输入要查找的结点");
 		while (in.hasNext()) {// 0 1;1 3;2 2;3 2
-			String v = in.next(); 
-			//Character c = v.charAt(0);
-			System.out.println(alGraph.getDegree(v)+"个");
+			String s = in.next();
+			// Character c = v.charAt(0);
+			System.out.println(alGraph.getDegree(s) + "个");
 
 		}
 	}
-	
+
 }
