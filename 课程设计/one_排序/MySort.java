@@ -251,7 +251,7 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 		Arr3.add(24);
 		Arr3.add(36);
 		*/
-		for(int i=0;i<300;i++)
+		for(int i=0;i<30000;i++)
 			Arr3.add((int)(Math.random()*30000+1));
 		//Arr3 = (ArrayList<Integer>) Arrays.asList(Arr2);
 
@@ -270,8 +270,44 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 		//mySort.display(Arr);
 		//mySort.InsertSortWithGuard(Arr);//1273-1368
 		System.out.println("共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
-		for(int i:Arr3)
-			System.out.print(i+" ");
+		/*for(int i:Arr3)
+			System.out.print(i+" ");*/
+		/*begin = (int) System.currentTimeMillis();
+		System.out.println(begin);
+		mySort.mergeSort(Arr);//6-27
+		System.out.println("归并排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		
+		begin = (int) System.currentTimeMillis();
+		System.out.println(begin);
+		mySort.shellSort(d, Arr);//1149=1443
+		System.out.println("shell排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		
+		begin = (int) System.currentTimeMillis();
+		System.out.println(begin);
+		mySort.InsertSort(Arr);//1558-2700
+		System.out.println("插入排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		
+		begin = (int) System.currentTimeMillis();
+		System.out.println(begin);
+		mySort.bubbleSort(Arr);//10318
+		System.out.println("冒泡排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		
+		begin = (int) System.currentTimeMillis();
+		System.out.println(begin);
+		mySort.selectSort(Arr);//1839-2305
+		System.out.println("选择排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		
+		begin = (int) System.currentTimeMillis();
+		System.out.println(begin);
+		mySort.qSort(0, 30000,Arr);//16-24
+		System.out.println("快速排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		
+		begin = (int) System.currentTimeMillis();
+		System.out.println(begin);
+		mySort.heapSort(Arr);//18-32
+		System.out.println("堆排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");*/
+		
+		
 	}
 
 }

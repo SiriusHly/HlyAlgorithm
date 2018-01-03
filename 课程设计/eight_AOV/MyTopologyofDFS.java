@@ -9,8 +9,8 @@ public class MyTopologyofDFS {
 	
 	static int MAX = Integer.MAX_VALUE;
 	static boolean visit[];
-	//static String c[] = { "C++", "Java", "Python", "Go", "Php" };
-	static String c[] = { "A", "B", "C", "D", "E" };
+	static String c[] = { "C++", "Java", "Python", "Go", "Php" };
+	//static String c[] = { "A", "B", "C", "D", "E" };
 	static Stack<String> stack = new Stack<String>();
 	public static int firstVex(int v,int [][]areas){
 		for(int j = 0;j <areas.length;j++)

@@ -13,7 +13,7 @@ import seven_Graph.ALGraph.VNode;
  * 
  * @author 黄良运 time:2017.12.7 邻接矩阵存储结构
  * @param <AnyType>
- *            1.求结点的度 2.增加，删除边 3.增加，删除顶点4.存储结构的转换
+ *            
  */
 public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 
@@ -131,7 +131,7 @@ public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 		return true;
 	}
 
-	// 删除顶点非常麻烦，不是一般的麻烦
+	// 删除顶点
 	public boolean deleteVex(AnyType vex) throws Exception {
 		int k = 0;
 		int arcs2[][] = new int[vexNum - 1][vexNum - 1];
@@ -234,28 +234,6 @@ public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 		}
 		return parent;
 	}
-	
-	
-	
-	// 邻接矩阵转化为邻接表
-	public ALGraph<AnyType> AmToAl() {
-		ALGraph<AnyType> alGraph = new ALGraph<AnyType>();
-		alGraph.setVexNum(vexNum);
-		alGraph.setArcNum(arcNum);
-		VNode<AnyType>[] vexs = new VNode[vexNum];
-		for (int v = 0; v < vexNum; v++) {// 构造顶点向量
-			vexs[v] = new VNode<AnyType>(this.vexs[v]);
-			System.out.print(vexs[v].data + " ");
-		}
-		alGraph.setVexs(vexs);
-		for (int k = 0; k < vexNum; k++)
-			for (int l = vexNum - 1; l >= 0; l--)// 倒过来你懂得
-				if (arcs[k][l] < INFINITY) {
-					System.out.println(arcs[k][l]);
-					alGraph.addArc(k, l, arcs[k][l]);
-				}
-		return alGraph;
-	}
 
 	/**
 	 * v1 v2 v3 v4 v1 v2 1 v2 v4 1 v2 v3 1 v3 v4 1 //头插注意顺序 1 2 3 4 1 2 1 2 4 1
@@ -320,12 +298,10 @@ public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 		// myGraph.addVex("v5");
 		// myGraph.addArc("v1", "v5", 1);
 		// myGraph.deleteVex("v4");
-		// System.out.println("改变结束");
 		// GraphTraverse.BFSTraverse(s);
 		System.out.println();
 
-		// System.out.println("AmToAl相对的第一个邻接点" +
-		// myGraph.AmToAl().firstAdjVex(0));
+		
 		// GraphTraverse.DFSTraverse(s);
 		System.out.println("请输入要查找的结点是");
 		while (in.hasNext()) {// int k = in.nextInt();

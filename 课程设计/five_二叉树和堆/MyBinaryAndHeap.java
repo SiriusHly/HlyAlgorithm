@@ -94,7 +94,7 @@ public class MyBinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 				queue.add(node.lchild);
 			if (node.rchild != null)
 				queue.add(node.rchild);
-			else// 右孩子为空时执行这一句，b的右孩子为空执行这一句
+			else
 				shouldleaff = true;
 		}
 		return true;
@@ -103,7 +103,7 @@ public class MyBinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 
 	// 7.筛选法调整堆排序算法
 	// 将以low为根结点的子树调整成小顶堆，low、和high分别是序列的上界和下界
-	public void sift(int low, int high, AnyType[] Arr) {
+	public void sift(int low, int high, AnyType[] Arr) { 
 		int i = low;
 		int j = 2 * i + 1;
 		AnyType temp = Arr[i];

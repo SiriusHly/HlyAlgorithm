@@ -12,7 +12,7 @@ public class DoubleCircleLinkedList<AnyType> {
 	
 	public static class Node<AnyType> {
 		Node<AnyType> prevNode;
-		Node<AnyType> nextNode;
+		Node<AnyType> nextNode; 
 		AnyType data;
 		public Node(){
 			this(null);
@@ -52,7 +52,6 @@ public class DoubleCircleLinkedList<AnyType> {
 		if(index<0||index>size()){
 			throw new Exception(index<0?"查找节点小于0":"查找节点超出范围");
 		}
-		return ;
 	}
 	
 	public Node<AnyType> getNode(int index) throws Exception{
@@ -84,33 +83,22 @@ public class DoubleCircleLinkedList<AnyType> {
 	}
 		
 	public void insert(int index,AnyType data) throws Exception{
-		if(index==0){
-			Node<AnyType> p = new Node<AnyType>(data,head,head.nextNode);
-			head.nextNode.prevNode=p;//头的前驱节点等于尾
-			head.nextNode=p;
-			size++;
-			return ;
-		}
 		Node<AnyType> q = getNode(index);
-		Node<AnyType> p = new Node<>(data,q.prevNode,q);
-		//p.prevNode = q.prevNode;
-		//p.nextNode = q;
+		Node<AnyType> p = new Node<>(data);
+		p.prevNode = q.prevNode;
+		p.nextNode = q;
 		q.prevNode.nextNode=p;
 		q.prevNode=p;
 		size++;
-		return ;
+		
 	}
 	
 	public void addHead(AnyType data) throws Exception{
 		insert(0, data);
 	}
 	
-	public void addRear(AnyType data){
-		Node<AnyType> p = new Node<>(data,head.prevNode,head);
-		head.prevNode.nextNode=p;
-		head.prevNode=p;
-		size++;
-		return;
+	public void addRear(AnyType data) throws Exception{
+		insert(size, data);
 	}
 	
 	public void remove(int index) throws Exception{
@@ -150,7 +138,7 @@ public class DoubleCircleLinkedList<AnyType> {
 		int n = in.nextInt(),s;
 		for(int i=0;i<n;i++){
 			s = in.nextInt();
-			La.addRear(s);
+			La.addHead(s);
 		}
 		La.display();
 		La.inverse();
@@ -161,12 +149,8 @@ public class DoubleCircleLinkedList<AnyType> {
 		//La.remove(4);
 		La.display();
 		La.insert(3,88);
-		La.display();
-		
+		La.display();	
 	}
-
-	
-
 }
 
 

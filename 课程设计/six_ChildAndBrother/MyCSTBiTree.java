@@ -68,7 +68,7 @@ public class MyCSTBiTree<AnyType extends Comparable<? super AnyType>> {
 			return 0;
 		else if(root.firstchild==null)
 			return 1;
-		else{
+		else{ 
 			for(CSTBiTreeNode<AnyType> p = root.firstchild;p!=null;p=p.nextsibling){
 				m=getDepth(p);
 				if(m>max)
@@ -98,6 +98,27 @@ public class MyCSTBiTree<AnyType extends Comparable<? super AnyType>> {
 		}
 		return childNum;
 	}
+	//结点的孩子结点个数
+	static int countNodeChild =0;
+	public int getNodeChild(CSTBiTreeNode<AnyType> root,AnyType n){
+		if(root!=null){
+			if(root.data!=n){
+				getchildCount(root.firstchild);
+				getchildCount(root.nextsibling);
+			}
+			else{
+				CSTBiTreeNode<AnyType> p = root.firstchild;
+				while(p!=null){
+					p = p.nextsibling;
+					countNodeChild++;
+				}
+				
+			}
+		}
+		return countNodeChild;
+	}
+	
+	
 
 	static class CSTBiTreeNode<AnyType> {
 		AnyType data;
@@ -126,16 +147,20 @@ public class MyCSTBiTree<AnyType extends Comparable<? super AnyType>> {
 		MyCSTBiTree<String> cstBiTree = new MyCSTBiTree<String>();
 		CSTBiTreeNode<String> r = cstBiTree.createCST(string);
 		//树的先序对应二叉树的先序
+		System.out.println("树的先序遍历:");
 		cstBiTree.preOrder(r);
 		System.out.println();
 		//树的后序对应二叉树的中
+		System.out.println("树的后序遍历:");
 		cstBiTree.InOrder(r);
 		System.out.println();
+		System.out.println("树的层次遍历:");
 		cstBiTree.gradationTraverse(r);
 		System.out.println();
 		System.out.println("树的深度是:"+cstBiTree.getDepth(r));
 		System.out.println("树的结点的个数:"+cstBiTree.getNodeNum(r));
-		System.out.println("树的孩子结点的个数:"+cstBiTree.getchildCount(r));
+		//System.out.println("树的孩子结点的个数:"+cstBiTree.getchildCount(r));
+		System.out.println("树的结点孩子的个数:"+cstBiTree.getNodeChild(r, "a"));
 	}
 
 }

@@ -2,6 +2,8 @@ package 双向循环链表;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
+import 双向循环链表.DoubleCircleLinkedList.Node;
+
 public class DoubleLinkedList<AnyType extends Comparable<? super AnyType>> {
 	
 	static class Node<AnyType> {
@@ -12,7 +14,22 @@ public class DoubleLinkedList<AnyType extends Comparable<? super AnyType>> {
 		public Node(AnyType data){
 			this(data,null,null);
 		}
+		/*if(index==0){
+		Node<AnyType> p = new Node<AnyType>(data);
+		p.prevNode = head;
+		p.nextNode = head.nextNode;
+		head.nextNode.prevNode=p;//头的前驱节点等于尾
+		head.nextNode=p;
+		size++;
 		
+	}*/
+		/*public void addRear(AnyType data){
+			Node<AnyType> p = new Node<>(data,head.prevNode,head);
+			head.prevNode.nextNode=p;
+			head.prevNode=p;
+			size++;
+			return;
+		}*/
 		public Node(AnyType data, Node<AnyType> nextNode, Node<AnyType> prevNode) {
 			super();
 			this.data = data;
