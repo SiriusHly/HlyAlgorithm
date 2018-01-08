@@ -41,14 +41,6 @@ public class MyKruskal {
                 flag[n1] = 1;
                 flag[n2] = 1;
             }
-            /*else if(flag[n1] > 0 && flag[n2] > 0) {
-                int tmp = flag[n2];
-                for(int i = 0; i < flag.length; i++){
-                    if(flag[i] == tmp){
-                        flag[i] = flag[n1];
-                    }
-                }
-            }*/
             else{
                 if(flag[n1] == 0)
                     flag[n1] = flag[n2];             

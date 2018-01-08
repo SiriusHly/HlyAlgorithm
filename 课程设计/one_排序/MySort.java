@@ -123,7 +123,6 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 				Arr[i] = Arr[min];
 				Arr[min] = temp;
 			}
-
 		}
 		return Arr;
 	}
@@ -198,7 +197,6 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 				order[i] = r[i];
 			}
 		}
-		
 	}
 	
 	//二路归并排序算法
@@ -254,11 +252,10 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 		for(int i=0;i<30000;i++)
 			Arr3.add((int)(Math.random()*30000+1));
 		//Arr3 = (ArrayList<Integer>) Arrays.asList(Arr2);
-
 		for(int i = 0;i<30000;i++)
 			Arr[i] = (int)(Math.random()*30000+1);//1-100
 		int begin = (int) System.currentTimeMillis();
-		System.out.println(begin);
+		//System.out.println(begin);
 		Arr3 = mySort.RadixSort(Arr3, 5);//28-31
 		//mySort.mergeSort(Arr);//6-27
 		//mySort.shellSort(d, Arr);//1149=1443
@@ -269,44 +266,42 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 		//mySort.heapSort(Arr);//18-32
 		//mySort.display(Arr);
 		//mySort.InsertSortWithGuard(Arr);//1273-1368
-		System.out.println("共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
-		/*for(int i:Arr3)
-			System.out.print(i+" ");*/
-		/*begin = (int) System.currentTimeMillis();
-		System.out.println(begin);
+		System.out.println("基数共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		for(int i = 0;i<30000;i++)
+			Arr[i] = (int)(Math.random()*30000+1);
+		begin = (int) System.currentTimeMillis();
 		mySort.mergeSort(Arr);//6-27
 		System.out.println("归并排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
-		
+		for(int i = 0;i<30000;i++)
+			Arr[i] = (int)(Math.random()*30000+1);
 		begin = (int) System.currentTimeMillis();
-		System.out.println(begin);
-		mySort.shellSort(d, Arr);//1149=1443
+		mySort.shellSort(d, Arr);//606-1443
 		System.out.println("shell排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
-		
+		for(int i = 0;i<30000;i++)
+			Arr[i] = (int)(Math.random()*30000+1);
 		begin = (int) System.currentTimeMillis();
-		System.out.println(begin);
 		mySort.InsertSort(Arr);//1558-2700
 		System.out.println("插入排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
-		
+		for(int i = 0;i<30000;i++)
+			Arr[i] = (int)(Math.random()*30000+1);
 		begin = (int) System.currentTimeMillis();
-		System.out.println(begin);
 		mySort.bubbleSort(Arr);//10318
 		System.out.println("冒泡排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
-		
+		for(int i = 0;i<30000;i++)
+			Arr[i] = (int)(Math.random()*30000+1);
 		begin = (int) System.currentTimeMillis();
-		System.out.println(begin);
 		mySort.selectSort(Arr);//1839-2305
 		System.out.println("选择排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
-		
+		for(int i = 0;i<30000;i++)
+			Arr[i] = (int)(Math.random()*30000+1);
 		begin = (int) System.currentTimeMillis();
-		System.out.println(begin);
-		mySort.qSort(0, 30000,Arr);//16-24
-		System.out.println("快速排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
-		
-		begin = (int) System.currentTimeMillis();
-		System.out.println(begin);
 		mySort.heapSort(Arr);//18-32
-		System.out.println("堆排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");*/
-		
+		System.out.println("堆排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		for(int i = 0;i<30000;i++)
+			Arr[i] = (int)(Math.random()*30000+1);
+		begin = (int) System.currentTimeMillis();
+		mySort.qSort(0, 30000-1,Arr);//16-24
+		System.out.println("快速排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
 		
 	}
 

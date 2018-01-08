@@ -44,7 +44,6 @@ public class MyDijkstra {
 							D[j] = min + areas[k][j];
 							path[j] = path[k] + "->" + c[j];
 						}
-				
 		}
 		for (int i = 0; i < num; i++) {
 			System.out.println( c[v] + "出发到" + c[i] + "的最短路径为：" + path[i] + "=" + D[i]);
@@ -64,7 +63,6 @@ public class MyDijkstra {
 	}
 
 	public static void main(String[] arvs) {
-
 		Scanner in = new Scanner(System.in);
 		int areas[][] = { { 0, 1, 25, 9 }, { 1, 0, MAX, 2 }, { 25, MAX, 0, 18 }, { 9, 2, 18, 0 } };
 		dijkstra(areas, search("A"));

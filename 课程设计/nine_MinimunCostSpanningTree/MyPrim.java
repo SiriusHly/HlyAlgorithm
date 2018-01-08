@@ -7,7 +7,7 @@ package nine_MinimunCostSpanningTree;
  *
  */
 public class MyPrim {
-	// mst保存到此顶点最小的起始顶点
+	// star保存到此顶点最小的起始顶点
 	// 每加入一个顶点，把其他边和这个顶点的距离和其他顶点比较
 
 	static int MAX = Integer.MAX_VALUE;
