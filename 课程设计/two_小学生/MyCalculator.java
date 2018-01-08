@@ -98,10 +98,6 @@ public class MyCalculator {
 				}
 				i++;
 				break;
-			case ' ':
-			case '\t':
-				i++;
-				break;
 			default:
 				if (Character.isDigit(ch) || ch == '.') {
 					while (Character.isDigit(ch) || ch == '.') {
