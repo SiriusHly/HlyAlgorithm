@@ -10,6 +10,10 @@ public class Calculator {
 	public Calculator() {
 	}
 
+	/*
+	 * 中缀表达式转化为后缀表达式 1.操作数，送往后缀表达式 2.op>栈顶op，压栈 3.op=栈顶op,弹出栈顶op送往后缀,把当前op压栈
+	 * 4.op<栈顶op,重复弹出优先级更高的栈顶运算符送往后缀表达式
+	 */
 	public String converToPostfix(String expression) {
 		Stack st = new Stack();
 		String postfix = new String();

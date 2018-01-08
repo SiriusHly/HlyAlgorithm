@@ -72,5 +72,8 @@ public class StudentInformation_ {
 		stuInfo.display();
 		System.out.println("查找:");
 		System.out.println(stuInfo.search("张8"));
+		stuInfo.insert(new Student("张3", "张3", "张3", "张3", "张3", "张3"));
+		stuInfo.display();
+		System.out.println(stuInfo.search("张3"));
 	}
 }

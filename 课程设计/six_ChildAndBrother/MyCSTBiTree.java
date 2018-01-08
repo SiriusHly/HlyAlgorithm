@@ -87,7 +87,7 @@ public class MyCSTBiTree<AnyType extends Comparable<? super AnyType>> {
 		}
 		return nodeCount;
 	}
-	//树的孩子结点的个数
+	/*//树的孩子结点的个数
 	static int childNum=0;
 	public int getchildCount(CSTBiTreeNode<AnyType> root){
 		if(root!=null){
@@ -97,14 +97,14 @@ public class MyCSTBiTree<AnyType extends Comparable<? super AnyType>> {
 			getchildCount(root.nextsibling);
 		}
 		return childNum;
-	}
+	}*/
 	//结点的孩子结点个数
 	static int countNodeChild =0;
 	public int getNodeChild(CSTBiTreeNode<AnyType> root,AnyType n){
 		if(root!=null){
 			if(root.data!=n){
-				getchildCount(root.firstchild);
-				getchildCount(root.nextsibling);
+				getNodeChild(root.firstchild,n);
+				getNodeChild(root.nextsibling,n);
 			}
 			else{
 				CSTBiTreeNode<AnyType> p = root.firstchild;

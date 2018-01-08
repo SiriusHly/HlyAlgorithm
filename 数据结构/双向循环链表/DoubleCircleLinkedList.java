@@ -1,6 +1,8 @@
 package 双向循环链表;
 
 import java.util.Scanner;
+
+
 /**
  * 
  * @author 黄良运
@@ -90,7 +92,6 @@ public class DoubleCircleLinkedList<AnyType> {
 		q.prevNode.nextNode=p;
 		q.prevNode=p;
 		size++;
-		
 	}
 	
 	public void addHead(AnyType data) throws Exception{
@@ -110,12 +111,7 @@ public class DoubleCircleLinkedList<AnyType> {
 		p=null;
 		
 	}
-	public AnyType remove(Node<AnyType> p){
-		p.prevNode.nextNode = p.nextNode;
-		p.nextNode.prevNode = p.prevNode;
-		size--;
-		return p.data;
-	}
+	
 	
 	public void inverse(){
 		Node<AnyType>p , q , k;

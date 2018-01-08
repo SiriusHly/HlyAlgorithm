@@ -14,11 +14,10 @@ public class MyHuffman {
 		ArrayList<HuffmanNode> leaf = new ArrayList<HuffmanNode>();
 		T = build(str, leaf);
 		// System.out.println("lead"+leaf.size());
-		Map<Character, String> MapCode = code(leaf);
+		ArrayList<Codes> Code = code(leaf);
 		String allCode = "";
-		for (Character c : str.toCharArray()) {
-			allCode += MapCode.get(c);
-		}
+		for(Codes c:Code)
+			allCode+=c.getHuffmcode();
 		return allCode;
 	}
 
@@ -44,16 +43,17 @@ public class MyHuffman {
 	}
 
 	public HuffmanTree build(String str, ArrayList<HuffmanNode> leaf) {
-		Map<Character, Integer> weight = weight(str.toCharArray());
-
-		for (Character c : weight.keySet())
-			System.out.println(c + "个数:" + weight.get(c));
+		ArrayList<Codes> weight = weight(str.toCharArray());
+		//System.out.println("size"+weight.size());
+		for(Codes c:weight){
+			System.out.println(c.getLetter()+"个数:"+c.getHuffmweight());
+		}
 		LinkedList<HuffmanNode> l = new LinkedList<>();
 
-		for (Character c : weight.keySet()) {
+		for (Codes c : weight) {
 			HuffmanNode n = new HuffmanNode();
-			n.setData(c.toString());
-			n.setWeight(weight.get(c));
+			n.setData(c.getLetter());
+			n.setWeight(c.getHuffmweight());
 			leaf.add(n);
 			l.add(n);
 		}
@@ -91,38 +91,55 @@ public class MyHuffman {
 		return p;
 	}
 
-	// 编码
-	public Map<Character, String> code(ArrayList<HuffmanNode> leaf) {
-		Map<Character, String> code = new HashMap<Character, String>();
-		for (HuffmanNode p : leaf) {
+	public ArrayList<Codes> code(ArrayList<HuffmanNode> leaf){
+		//System.out.println("leaf:"+leaf.size());
+		ArrayList<Codes> code = new ArrayList<>();
+		for(HuffmanNode p: leaf){
 			Character c = p.getData().charAt(0);
-			String strCode = "";
+			//System.out.println("leafc"+c);
+			String strCode ="";
 			HuffmanNode cuNode = p;
-			while (cuNode.parent != null) {
-				if (cuNode.islchild()) {
-					strCode += "0";
-				} else {
-					strCode += "1";
+			while(cuNode.parent!=null){
+				if(cuNode.islchild()){
+					strCode+="0";
+				}
+				else{
+					strCode+="1";
 				}
 				cuNode = cuNode.parent;
 			}
 			strCode = new StringBuffer(strCode).reverse().toString();
-			code.put(c, strCode);
+			code.add(new Codes("c",strCode));
 			System.out.println(c + ":" + strCode);
-
 		}
 		return code;
 	}
 
-	// 通过频率设置权重
-	public Map<Character, Integer> weight(char[] Arr) {
-		Map<Character, Integer> map = new HashMap<Character, Integer>();
-		for (Character c : Arr)
-			if (map.containsKey(c))
-				map.put(c, map.get(c) + 1);
-			else
-				map.put(c, 1);
-		return map;
+	
+	
+	public ArrayList<Codes> weight(char []Arr){
+		ArrayList<Codes> arrlist = new ArrayList<Codes>();
+		arrlist.add(new Codes(String.valueOf(Arr[0]),1));
+		for(int c = 1;c<Arr.length;c++){
+			//System.out.println("arrsize"+arrlist.size());
+			int s = arrlist.size();
+			for(int i=0;i<s;i++){
+				if(arrlist.get(i).getLetter().equals(String.valueOf(Arr[c]))){
+					//System.out.println("=="+Arr[c]);
+					arrlist.get(i).setHuffmweight(arrlist.get(i).getHuffmweight()+1);
+					break;
+				}
+				else{
+					arrlist.add(new Codes(String.valueOf(Arr[c]),1));
+					break;
+				}
+			}
+			
+		}
+		
+		/*for(Codes i:arrlist)
+			System.out.println("统计个数："+i.getLetter()+" "+i.getHuffmweight());*/
+		return arrlist;
 	}
 
 	public void levelOrder(HuffmanTree t) {
@@ -142,7 +159,6 @@ public class MyHuffman {
 	}
 
 	public void inOrder(HuffmanNode t) {
-
 		if (t != null) {
 			inOrder(t.lchild);
 			System.out.print(t.data + " ");
@@ -165,6 +181,48 @@ public class MyHuffman {
 		myHuffman.inOrder(myHuffman.T.root);
 	}
 
+	static class Codes{
+		private String letter;
+		private String huffmcode;
+		private int huffmweight;
+		public Codes(String letter, String huffmcode, int huffmweight) {
+			this.letter = letter;
+			this.huffmcode = huffmcode;
+			this.huffmweight = huffmweight;
+		}
+		
+		public Codes(String letter, String huffmcode) {
+			this.letter = letter;
+			this.huffmcode = huffmcode;
+		}
+
+		public Codes(String letter, int huffmweight) {
+			this.letter = letter;
+			this.huffmweight = huffmweight;
+		}
+
+		public String getLetter() {
+			return letter;
+		}
+		public void setLetter(String letter) {
+			this.letter = letter;
+		}
+		public String getHuffmcode() {
+			return huffmcode;
+		}
+		public void setHuffmcode(String huffmcode) {
+			this.huffmcode = huffmcode;
+		}
+		public int getHuffmweight() {
+			return huffmweight;
+		}
+		public void setHuffmweight(int huffmweight) {
+			this.huffmweight = huffmweight;
+		}
+		
+		
+	}
+	
 	static class HuffmanTree {
 		private HuffmanNode root;
 

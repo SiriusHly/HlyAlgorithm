@@ -26,7 +26,7 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 	// 2.直接插入排序带监视哨，每一段，每一趟，每一个数一直往前比较，往前插入
 	public AnyType[] InsertSortWithGuard(AnyType[] Arr) {
 		int i, j;
-		for (i = 1; i < Arr.length; i++) {//i可以2开始
+		for (i = 2; i < Arr.length; i++) {//i可以2开始
 			Arr[0] = Arr[i];
 			for (j = i - 1; Arr[0].compareTo(Arr[j]) < 0; j--){//j=i-1,j和a[0]差1
 				Arr[j + 1] = Arr[j];
