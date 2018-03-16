@@ -7,7 +7,6 @@ import java.util.Scanner;
  */
 public class MyDijkstra {
 	static String c[] = { "A", "B", "C", "D" };
-	private static boolean[][] P;
 	private static int[] D;
 	public final static int MAX = Integer.MAX_VALUE;
 
@@ -46,7 +45,7 @@ public class MyDijkstra {
 						}
 		}
 		for (int i = 0; i < num; i++) {
-			System.out.println( c[v] + "出发到" + c[i] + "的最短路径为：" + path[i] + "=" + D[i]);
+			System.out.println( "城市"+c[v] + "出发到" + c[i] + "的最短路径为：" + path[i] + "=" + D[i]);
 		}
 	}
 	public static int search(String str) {
@@ -56,17 +55,17 @@ public class MyDijkstra {
 		return -1;
 	}
 
-	public static void display(int[] D) {
+	/*public static void display(int[] D) {
 		for (int i = 0; i < D.length; i++)
 			System.out.print("到顶点" + c[i] + "的最短路径路径为：" + D[i] + "    ");
 		System.out.println();
-	}
+	}*/
 
 	public static void main(String[] arvs) {
 		Scanner in = new Scanner(System.in);
 		int areas[][] = { { 0, 1, 25, 9 }, { 1, 0, MAX, 2 }, { 25, MAX, 0, 18 }, { 9, 2, 18, 0 } };
 		dijkstra(areas, search("A"));
-		display(D);
+		//display(D);
 	}
 
 }

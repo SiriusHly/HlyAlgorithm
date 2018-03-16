@@ -47,7 +47,7 @@ public class DoubleCircleLinkedList<AnyType> {
 	}
 	
 	public boolean isEmpty(){
-		return size==0;
+		return head.nextNode==null;
 	}
 	//验证范围合法性
 	public void validate(int index) throws Exception{
@@ -136,16 +136,22 @@ public class DoubleCircleLinkedList<AnyType> {
 			s = in.nextInt();
 			La.addHead(s);
 		}
+		System.out.println("头插法插入后的结果:");
 		La.display();
+		System.out.println("就地逆置后的结果：");
 		La.inverse();
 		La.display();
 		//System.out.println("第0个节点前驱"+La.getNode(0).prevNode.data);
 		//System.out.println("第3个节点前驱"+La.getNode(3).data);
 		//System.out.println("大小"+La.size());
-		//La.remove(4);
+		System.out.println("删除第五个结点:");
+		La.remove(4);
 		La.display();
+		System.out.println("第四个结点插入88:");
 		La.insert(3,88);
-		La.display();	
+		La.display();
+		System.out.println("第二个位置上的元素:"+La.get(1));
+		
 	}
 }
 

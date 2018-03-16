@@ -140,7 +140,7 @@ public class ALGraph<AnyType extends Comparable<? super AnyType>> {
 	public boolean deleteVex(AnyType vex) throws Exception {
 		int i = locateVex(vex);// 数据的vexs.data下标
 		VNode<AnyType> v = vexs[i];// 得到节点的位置
-		// 删除其他与该顶点相关的顶点
+		
 		for (VNode<AnyType> u : vexs)
 			for (ArcNode<AnyType> arc = u.firstArc; arc != null; arc = arc.nextArc)
 				if (vexs[arc.adjVex].equals(v)) {
@@ -155,7 +155,7 @@ public class ALGraph<AnyType extends Comparable<? super AnyType>> {
 		return true;
 	}
 
-	// 判断连通性，求连通分量
+	
 	public void connectDFS(ALGraph<AnyType> G, int v) throws Exception {
 		visit[v] = true;
 		for (int w = G.firstAdjVex(v); w >= 0; w = G.nextAdjVex(v, w)) {
@@ -177,7 +177,7 @@ public class ALGraph<AnyType extends Comparable<? super AnyType>> {
 		}
 		return count;
 	}
-	//判断两点之间是否存在路径
+	
 	public boolean pathDFS(ALGraph<AnyType> G, AnyType A, AnyType B) throws Exception {
 		int v = locateVex(A);
 		int u = locateVex(B);
@@ -191,7 +191,7 @@ public class ALGraph<AnyType extends Comparable<? super AnyType>> {
 		return false;
 	}
 	
-	//广度优先遍历求最简单路径
+	
 		public int[] pathBFS(ALGraph<AnyType> G,AnyType A,AnyType B) throws Exception{
 			int parent [] = new int [G.getVexNum()];
 			int v = locateVex(A);
@@ -243,7 +243,7 @@ public class ALGraph<AnyType extends Comparable<? super AnyType>> {
 		}
 	}
 
-	// 图的邻接表存储结构表示中的顶点节点类
+	
 	public static class VNode<AnyType> {
 		public AnyType data;// 顶点信息
 		public ArcNode<AnyType> firstArc;// 指向第一条依附于该顶点的弧
@@ -294,12 +294,12 @@ public class ALGraph<AnyType extends Comparable<? super AnyType>> {
 		// alGraph.deleteVex("v2");
 		// alGraph.addVex("v5");
 		// alGraph.deleteArc("v2","v4");
-		// 判断图的连通性，求图的连通分量
+		
 		System.out.println("该图的连通分量个数为:" + alGraph.connect(alGraph) + "个");
-		// 深度优先判断两点是否存在路径
+		
 		System.out.println(alGraph.pathDFS(alGraph, "v1", "v2"));
 		System.out.println(alGraph.pathDFS(alGraph, "v2", "v3"));
-		//输出一条简单路径
+		
 				System.out.println("简单路径为:");
 				int parent [] = alGraph.pathBFS(alGraph, "v1", "v4");
 				int v = alGraph.locateVex("v1");
@@ -313,7 +313,7 @@ public class ALGraph<AnyType extends Comparable<? super AnyType>> {
 				}
 				System.out.println();
 		System.out.println("请输入要查找的结点");
-		while (in.hasNext()) {// 0 1;1 3;2 2;3 2
+		while (in.hasNext()) {
 			String s = in.next();
 			// Character c = v.charAt(0);
 			System.out.println(alGraph.getDegree(s) + "个");

@@ -2,6 +2,7 @@ package two_小学生;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Stack;
 
 /*
@@ -48,6 +49,10 @@ public class MyCalculator {
 		return false;
 	}
 
+	/*
+	 * 中缀表达式转化为后缀表达式 1.操作数，送往后缀表达式 2.op>栈顶op，压栈 3.op=栈顶op,弹出栈顶op送往后缀,把当前op压栈
+	 * 4.op<栈顶op,重复弹出优先级更高的栈顶运算符送往后缀表达式
+	 */
 	private List convertToPostfix(String exp) throws Exception {
 		exp += "#";
 		List<String> postfix = new ArrayList<String>();
@@ -131,9 +136,12 @@ public class MyCalculator {
 		return st.pop();
 	}
 	public static void main(String[]hly) throws Exception{
-		
-		
-		System.out.println(new MyCalculator().convertToPostfix("5*3/4+1"));
-		System.out.println(new MyCalculator().Calculate(new MyCalculator().convertToPostfix("5*3/4+1")));	
+		Scanner in = new Scanner(System.in);
+		System.out.println("请输入四则运算的中缀表达式：");
+		String str = in.next();
+		System.out.println("后缀表达式：");
+		System.out.println(new MyCalculator().convertToPostfix(str));
+		System.out.println("结果：");
+		System.out.println(new MyCalculator().Calculate(new MyCalculator().convertToPostfix(str)));	
 	}
 }

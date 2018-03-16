@@ -1,4 +1,7 @@
 package nine_MinimunCostSpanningTree;
+
+import java.util.Arrays;
+
 /**
  * 
  * @author 黄良运
@@ -7,26 +10,27 @@ package nine_MinimunCostSpanningTree;
  */
 public class MyKruskal {
   
-    static char[] c = new char[]{'A','B','C','D','E'}; 
+	static String[] c = new String[] { "博文楼","科技馆","逸夫楼","信息楼","图书馆" };
     static int MAX = Integer.MAX_VALUE;
 
-    public static void kruskal(int[][] arcs) {
+    public static void kruskal(int[][] areas) {
         //顶点个数
-        int num = arcs.length;
+        int num = areas.length;
         //存放对应顶点所在连通图标识
-        int[] flag = new int[num]; 
-        int sum = 0, n1 = 0, n2 = 0;
+        boolean [] flag = new boolean[num]; 
+        Arrays.fill(flag, false);
+        int sum = 0, n = 0, m = 0;
         boolean finished = false;
         while(!finished) {
             int min = Integer.MAX_VALUE;
             //找出所有边中最小值
             for(int i = 0; i < num; i++) {
                 for(int j = i+1; j < num; j++) {
-                    if(arcs[i][j] > 0 && arcs[i][j] < min){
-                        if (flag[i] != flag[j] || (flag[i] == 0 && flag[j] == 0)) {
-                            min = arcs[i][j];
-                            n1 = i;
-                            n2 = j;    
+                    if(areas[i][j] > 0 && areas[i][j] < min){
+                        if (flag[i] != flag[j] || (flag[i] == false && flag[j] == false)) {
+                            min = areas[i][j];
+                            n = i;
+                            m = j;    
                         }                                            
                     }
                 }
@@ -35,17 +39,17 @@ public class MyKruskal {
                 break;
             }
             
-            System.out.println(c[n1] + " -> " + c[n2] + " " + min);
+            System.out.println(c[n] + " ---> " + c[m] + " " + min);
             sum += min;
-            if(flag[n1] == 0 && flag[n2] == 0){
-                flag[n1] = 1;
-                flag[n2] = 1;
+            if(flag[n] == false && flag[m] == false){
+                flag[n] = true;
+                flag[m] = true;
             }
             else{
-                if(flag[n1] == 0)
-                    flag[n1] = flag[n2];             
+                if(flag[n] == false)
+                    flag[n] = flag[m];             
                 else
-                    flag[n2] = flag[n1];                
+                    flag[m] = flag[n];                
             }
             
             for(int i = 0; i < flag.length; i++) {
@@ -61,10 +65,10 @@ public class MyKruskal {
                 break;
             }
         }
-        System.out.println(sum);
+        System.out.println("总距离"+sum);
     }
     public static void main(String[] args) {
-   	 int[][] map = new int[][]{
+   	 int[][] areas = new int[][]{
             {0,2,1,4,MAX},
             {2,0,MAX,3,4},
             {1,MAX,0,9,MAX},
@@ -72,6 +76,6 @@ public class MyKruskal {
             {MAX,4,MAX,9,0}
             
     };
-       kruskal(map);
+       kruskal(areas);
    }
 }

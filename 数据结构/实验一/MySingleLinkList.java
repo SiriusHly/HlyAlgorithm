@@ -1,4 +1,7 @@
 package 实验一;
+
+
+
 /**
  * 
  * @author 黄良运
@@ -187,7 +190,7 @@ public class MySingleLinkList<AnyType extends Comparable<? super AnyType>> {
 		System.out.println();
 	}
 
-	// move the min number to the single linked list head
+	/*// move the min number to the single linked list head
 	public MySingleLinkList<AnyType> moveMin(MySingleLinkList<AnyType> L) throws Exception {
 		Node<AnyType> p = L.firstNode;
 		int count = 0, i = 0;
@@ -202,13 +205,64 @@ public class MySingleLinkList<AnyType extends Comparable<? super AnyType>> {
 		}
 		remove(i);
 		addHead(s);
+		return L;
+	}*/
+	
+	// move the min number to the single linked list head
+	public MySingleLinkList<AnyType> moveMin(MySingleLinkList<AnyType> L) throws Exception {
+		Node<AnyType> p = L.firstNode;
+		int count = 0, i = 0;
+		AnyType s = p.data;
+		while (p.nextNode != null) {
+			p = p.nextNode;
+			count++;
+			if (s.compareTo(p.data) > 0) {
+				s = p.data;
+				i = count;
+			}
+		}
+		int j = 0;
+		Node<AnyType> q = firstNode;
 		
+		while(j<i-1&&q!=null){
+			q= q.nextNode;
+			j++;
+		}
+		if(j>i&&q==null)
+			throw new Exception("插入位置不合法");
+		q.nextNode = q.nextNode.nextNode;
+		size--;
 		
-		
-		
-		
+		Node<AnyType> x = new Node(s);
+		x.nextNode = firstNode;
+		firstNode = x;
+		size--;
 		return L;
 	}
+	
+	/*public void moveMin(Node<AnyType> root){
+		Node<AnyType> p= root;
+		Node<AnyType> q=null;
+		Node<AnyType> pre,pre2=null;
+		AnyType s = p.data;
+		int i = 0;
+		while(p.nextNode!=null){
+			pre = p ;
+			p = p.nextNode;
+			if(s.compareTo(p.data)>0){
+				s = p.data;
+				q = p;
+				pre2 = pre;
+			}
+		}
+		pre2.nextNode = pre2.nextNode.nextNode;
+		q.nextNode = firstNode.nextNode;
+		firstNode.nextNode =q;
+		
+		
+		
+		
+	}*/
 
 	public Node<AnyType> getNode2(int index) throws Exception {
 		Node<AnyType> p = this.firstNode;
@@ -236,18 +290,60 @@ public class MySingleLinkList<AnyType extends Comparable<? super AnyType>> {
 		s.nextNode = p.nextNode;
 		p.nextNode = s;// 修改连，使新节点插入链表中
 	}
+	
+	public void reverseprint(Node<AnyType> head){
+		if(head == null)
+			return ;
+		else
+		{
+			reverseprint(head.nextNode);
+			System.out.print(head.data+" ");
+		}
+	}
+	/*public Node<AnyType> reverse(Node<AnyType> head){
+		Node<AnyType> p = head.nextNode;
+		head.nextNode  = null;
+		while(p!=null){
+			Node<AnyType> q = p.nextNode;
+			p.nextNode = head.nextNode;
+			head.nextNode = p;
+			p = q;
+		}
+		return head;
+	}*/
+	public Node reverse(){
+		Node p = firstNode;
+		firstNode = null;
+		while(p!=null){
+			Node q = p.nextNode;
+			p.nextNode = firstNode;
+			firstNode = p;
+			p = q;
+		}
+		return firstNode;
+		
+	}
 
 	public static void main(String[] args) throws Exception {
 		// initialize two singlelink
 		MySingleLinkList<Integer> La = new MySingleLinkList<Integer>();
 		MySingleLinkList<Integer> Lb = new MySingleLinkList<Integer>();
 		for (int i = 20; i < 30; i++)
-			La.addHead(i);
-		System.out.println(La.getNodeData(2));
+			La.addRear(i);
+		System.out.println("head"+La.firstNode.data);
+		System.out.println(La.getNodeData(0));
 
 		La.display(La);
-		La.moveMin(La);
+		System.out.println("逆序输出：");
+		La.reverseprint(La.firstNode);
+		System.out.println("就地逆置：");
+		La.reverse();
 		La.display(La);
+		System.out.println("最小前移：");
+		
+		La.display(La.moveMin(La));
+		//La.moveMin(La);
+		//La.display(La);
 		/*
 		 * for(int i=2;i<6;i++) Lb.add(i); Lb.display(Lb); La.add(2,66);
 		 * La.display(La); La.remove(3); La.display(La);

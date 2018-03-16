@@ -13,7 +13,7 @@ import seven_Graph.ALGraph.VNode;
  * 
  * @author 黄良运 time:2017.12.7 邻接矩阵存储结构
  * @param <AnyType>
- *            
+ * 
  */
 public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 
@@ -183,8 +183,9 @@ public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 	public int connect(MyGraph<AnyType> G) throws Exception {
 		visit = new boolean[G.getVexNum()];
 		Arrays.fill(visit, false);
-		/*for (boolean i : visit)
-			i = false;*/
+		/*
+		 * for (boolean i : visit) i = false;
+		 */
 		int count = 0;
 		for (int i = 0; i < G.getVexNum(); i++) {
 			if (!visit[i]) {
@@ -208,31 +209,50 @@ public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 		}
 		return false;
 	}
-	
-	//广度优先遍历求最简单路径
-	public int[] pathBFS(MyGraph<AnyType> G,AnyType A,AnyType B) throws Exception{
-		int parent [] = new int [G.getVexNum()];
+
+	// 广度优先遍历求最简单路径
+	public int[] pathBFS(MyGraph<AnyType> G, AnyType A, AnyType B) throws Exception {
+		int parent[] = new int[G.getVexNum()];
 		int v = locateVex(A);
 		int u = locateVex(B);
-		boolean flag =false;
-		/*visit = new boolean[G.getVexNum()];
-		Arrays.fill(visit, false);*/
+		boolean flag = false;
+		/*
+		 * visit = new boolean[G.getVexNum()]; Arrays.fill(visit, false);
+		 */
 		Queue<Integer> queue = new LinkedList<Integer>();
 		queue.offer(v);
-		while(!queue.isEmpty()&&!flag){
+		while (!queue.isEmpty() && !flag) {
 			int i = queue.poll();
-			for(int w = G.firstAdjVex(i);w>=0;w = G.nextAdjVex(i, w)){
-				if(u ==w){
-					parent[w] =i;
+			for (int w = G.firstAdjVex(i); w >= 0; w = G.nextAdjVex(i, w)) {
+				if (u == w) {
+					parent[w] = i;
 					flag = true;
-					break;	
-				}
-				else
-				parent[w] = i;
+					break;
+				} else
+					parent[w] = i;
 				queue.offer(w);
-			}	
+			}
 		}
 		return parent;
+	}
+
+	public ALGraph<AnyType> AmToAl() {
+		ALGraph<AnyType> alGraph = new ALGraph<AnyType>();
+		alGraph.setVexNum(vexNum);
+		alGraph.setArcNum(arcNum);
+		VNode<AnyType>[] vexs = new VNode[vexNum];
+		for (int v = 0; v < vexNum; v++) {// 构造顶点向量
+			vexs[v] = new VNode<AnyType>(this.vexs[v]);
+			System.out.print(vexs[v].data + " ");
+		}
+		alGraph.setVexs(vexs);
+		for (int k = 0; k < vexNum; k++)
+			for (int l = vexNum - 1; l >= 0; l--)// 倒过来你懂得
+				if (arcs[k][l] < INFINITY) {
+					System.out.println(arcs[k][l]);
+					alGraph.addArc(k, l, arcs[k][l]);
+				}
+		return alGraph;
 	}
 
 	/**
@@ -267,32 +287,31 @@ public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 			int v = myGraph.locateVex(in.next());// 得到顶点的下标
 			int u = myGraph.locateVex(in.next());
 			arcs[v][u] = in.nextInt();
-			// arcs[u][v] = arcs[v][u] = in.nextInt();
 		}
 		myGraph.setArcs(arcs);
-		// System.out.println("输出结束");
+		
 		// 判断图的连通性，求图的连通分量
 		System.out.println("该图的连通分量个数为:" + myGraph.connect(myGraph) + "个");
-		//深度优先判断两点是否存在路径
-		System.out.println(myGraph.pathDFS(myGraph, "v1", "v2"));
-		System.out.println(myGraph.pathDFS(myGraph, "v2", "v3"));
-		//输出一条简单路径
-		System.out.println("简单路径为:");
-		int parent [] = myGraph.pathBFS(myGraph, "v1", "v4");
+		// 深度优先判断两点是否存在路径
+		System.out.println("v1和v2之间是否存在路径："+myGraph.pathDFS(myGraph, "v1", "v2"));
+		System.out.println("v2和v3之间是否存在路径："+myGraph.pathDFS(myGraph, "v3", "v4"));
+		// 输出一条简单路径
+		System.out.println("v1到v4的简单路径为:");
+		int parent[] = myGraph.pathBFS(myGraph, "v1", "v4");
 		int v = myGraph.locateVex("v1");
 		int u = myGraph.locateVex("v4");
-		int i =u;
+		int i = u;
 		System.out.print("v4");
-		while(i!=v){
+		while (i != v) {
 			System.out.print("->");
 			System.out.print(vexs[parent[i]]);
 			i = parent[i];
 		}
 		System.out.println();
-		
-		//求顶点的第一个邻接点和相对的下一个邻接点
-		System.out.println(myGraph.firstAdjVex(1));
-		System.out.println(myGraph.nextAdjVex(1, 2));
+
+		// 求顶点的第一个邻接点和相对的下一个邻接点
+		System.out.println("第2个邻接点v2的下一个邻接点"+vexs[myGraph.firstAdjVex(1)]);
+		System.out.println("第2个邻接点v2相对于第三个邻接点v3的下一个邻接点"+vexs[myGraph.nextAdjVex(1, 2)]);
 		// myGraph.addArc("v1", "v3", 1);
 		// myGraph.deleteArc("v2", "v3");
 		// myGraph.addVex("v5");
@@ -301,12 +320,11 @@ public class MyGraph<AnyType extends Comparable<? super AnyType>> {
 		// GraphTraverse.BFSTraverse(s);
 		System.out.println();
 
-		
 		// GraphTraverse.DFSTraverse(s);
-		System.out.println("请输入要查找的结点是");
+		System.out.println("请输入要查找的结点的度");
 		while (in.hasNext()) {// int k = in.nextInt();
 			String k = in.next();
-			System.out.println(myGraph.getDegree(k) + "个");
+			System.out.println("个数："+myGraph.getDegree(k) + "个");
 		}
 
 	}

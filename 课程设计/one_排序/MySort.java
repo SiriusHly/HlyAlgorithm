@@ -1,5 +1,12 @@
 package one_排序;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /*
@@ -82,19 +89,19 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 				high--;
 			}
 			if (low < high) {
-				Arr[low] = Arr[high];//右侧比base小的数保存到Arr[0]中
+				Arr[low] = Arr[high];//右侧比b小的数保存到Arr[0]中
 				low++;
 			}
 			while (low < high && pivot.compareTo(Arr[low]) > 0) {
 				low++;
 			}
 			if (low < high) {
-				Arr[high] = Arr[low];//左侧比base大的树保存到Arr[3]中，j--到的位置
+				Arr[high] = Arr[low];//左侧比b大的树保存到Arr[3]中，j到的位置
 				high--;
 			}
 		}
-		Arr[low] = pivot;//base给左侧比他大的数
-		return low;//返回左侧比base大的数的下标
+		Arr[low] = pivot;//b给左侧比他大的数
+		return low;//返回左侧比b大的数的下标
 	}
 	// 5.快速排序递归算法,右找小，左找大
 	public AnyType[] qSort(int low, int high,AnyType[]Arr) {
@@ -239,6 +246,12 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 	}
 
 	public static void main(String[] args) {
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		OutputStreamWriter osw = null;
+		FileReader fr = null;
+		BufferedReader br = null;
+		InputStreamReader isr = null;
 		MySort<Integer> mySort = new MySort<Integer>();
 		int[] d = { 2, 1 };
 		Integer[] Arr = new Integer[30000];
@@ -254,6 +267,21 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 		//Arr3 = (ArrayList<Integer>) Arrays.asList(Arr2);
 		for(int i = 0;i<30000;i++)
 			Arr[i] = (int)(Math.random()*30000+1);//1-100
+		///System.out.println("aa");
+		
+		try {
+			fw = new FileWriter("C:/Users/hly/Desktop/tralate.txt");
+			bw = new BufferedWriter(fw);
+			// String str = in.nextLine();
+			for(Integer i :Arr){
+				bw.write(i+" ");
+			}
+			bw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+						
 		int begin = (int) System.currentTimeMillis();
 		//System.out.println(begin);
 		Arr3 = mySort.RadixSort(Arr3, 5);//28-31
@@ -302,6 +330,10 @@ public class MySort<AnyType extends Comparable<? super AnyType>> {
 		begin = (int) System.currentTimeMillis();
 		mySort.qSort(0, 30000-1,Arr);//16-24
 		System.out.println("快速排序共用时间"+(int) (System.currentTimeMillis()-begin)+"毫秒");
+		
+		for(Integer i :Arr)
+			System.out.println(i+" ");
+		
 		
 	}
 

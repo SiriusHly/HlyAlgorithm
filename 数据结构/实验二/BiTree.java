@@ -202,6 +202,18 @@ public class BiTree<AnyType> {
 				return leftTreeLeaf + rightTreeLeaf;
 		}
 	}
+	
+	//½»»»×óÓÒ×ÓÊ÷
+	public void changelAndr(BiTreeNode<AnyType> root){
+		if(root!=null){
+			BiTreeNode<AnyType> p = root.lchild;
+			root.lchild = root.rchild;
+			root.rchild = p;
+			changelAndr(root.lchild);
+			changelAndr(root.rchild);
+		}
+		
+	}
 
 	// non-Recursive traversal by postorder
 	public static void main(String[] args) {

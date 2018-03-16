@@ -43,7 +43,7 @@ public class Linklist implements Ilist {
 	public void create1(int n) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		for (int j = 0; j < n; j++) {
-			insert(length(), sc.next());
+			insert(length(), j+2);
 		}
 	}
 
@@ -51,7 +51,7 @@ public class Linklist implements Ilist {
 	public void create2(int n) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		for (int j = 0; j < n; j++) {
-			insert(0, sc.next());
+			insert(0, j+2);
 		}
 	}
 
@@ -152,15 +152,32 @@ public class Linklist implements Ilist {
 			node = node.next;// 取出下一个节点
 		}
 	}
+	
+	public Node reverseH(Node head){
+		Node p = head.next;
+		head.next = null;
+		while(p!=null){
+			Node q = p.next;
+			p.next = head.next;
+			head.next = p;
+			p = q ;
+		}
+		return head;
+	}
 
 	public static void main(String[] a) throws Exception {
 		Scanner in = new Scanner(System.in);
-		System.out.println("请输入要创建链表的长度：");
+		/*System.out.println("请输入要创建链表的长度：");
 		int n = in.nextInt();
-		System.out.println("请输入链表的值：");
-		Linklist L = new Linklist(n, false);
+		System.out.println("请输入链表的值：");*/
+		Linklist L = new Linklist(5, false);
 		L.display();
 		System.out.println();
+		L.reverseH(head);
+		L.display();
+		System.out.println();
+		
+		
 		System.out.println("请输入要删除的第n个节点：");
 		int m = in.nextInt();
 		L.remove(m);

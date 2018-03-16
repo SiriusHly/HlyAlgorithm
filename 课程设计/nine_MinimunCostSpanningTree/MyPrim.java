@@ -12,44 +12,45 @@ public class MyPrim {
 
 	static int MAX = Integer.MAX_VALUE;
 
-	public static void prim(int[][] graph, int n) {
-		char[] c = new char[] { 'A', 'B', 'C', 'D', 'E' };
-		int[] lowpath = new int[n];
+	public static void prim(int[][] areas, int n) {
+		String[] c = new String[] { "博文楼","科技馆","逸夫楼","信息楼","图书馆" };
+		int[] lowweight = new int[n];
 		int[] star = new int[n];
 		int i, j, min, minid, sum = 0;
 
 		for (i = 1; i < n; i++) {
-			lowpath[i] = graph[0][i];
+			lowweight[i] = areas[0][i];
 			star[i] = 0;
 		}
 
-		for (i = 1; i < n; i++) {
+		for (i = 1; i < n; i++) { 
 			min = MAX;
 			minid = 0;
 			for (j = 1; j < n; j++) {
-				if (lowpath[j] < min && lowpath[j] != 0) {
-					min = lowpath[j];
+				if (lowweight[j] < min && lowweight[j] != 0) {
+					min = lowweight[j];
 					minid = j;
 				}
 			}
-			System.out.println(c[star[minid]] + "->" + c[minid] + " ：" + min);
+			System.out.println(c[star[minid]] + "---》" + c[minid] + " 距离：" + min);
+			
 			sum += min;
-			lowpath[minid] = 0;
+			lowweight[minid] = 0;
 			for (j = 1; j < n; j++) { // 没找到又从A开始
-				if (graph[minid][j] < lowpath[j]) {
-					lowpath[j] = graph[minid][j];
+				if (areas[minid][j] < lowweight[j]) {
+					lowweight[j] = areas[minid][j];
 					star[j] = minid;
 				}
 			}
 		}
-		System.out.println(sum);
+		 System.out.println("总距离"+sum);
 	}
 	public static void main(String[] args) {
-		int[][] map = new int[][] { { 0, 2, 1, 8, MAX }, { 2, 0, MAX, 3, 4 }, { 1, MAX, 0, 9, MAX }, { 8, 3, 9, 0, 9 },
+		int[][] areas = new int[][] { { 0, 2, 1, 8, MAX }, { 2, 0, MAX, 3, 4 }, { 1, MAX, 0, 9, MAX }, { 8, 3, 9, 0, 9 },
 				{ MAX, 4, MAX, 9, 0 }
 
 		};
-		prim(map, map.length);
+		prim(areas, areas.length);
 	}
 
 }

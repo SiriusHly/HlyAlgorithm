@@ -3,7 +3,7 @@ package eight_AOV;
 public class MyKahn {
 
 	static int MAX = Integer.MAX_VALUE;
-	static String c[] = { "C++", "Java", "Python", "Go", "Php" };
+	static String c[] = { "C++", "Linux", "java", "操作系统", "数据结构" };
 
 	public static void kahn(int areas[][]) {
 		int flag[] = new int[areas.length];

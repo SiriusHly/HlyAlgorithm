@@ -15,7 +15,7 @@ public class Find<AnyType extends Comparable<? super AnyType>> {
 			//System.out.println("mid: "+mid+"Arr[mid]: "+Arr[mid]+" low: "+low+" high: "+high);
 			if (Arr[mid].compareTo(x) == 0)
 				return mid;
-			else if (Arr[mid].compareTo(x) > 0)
+			else if (Arr[mid].compareTo(x) > 0)//x比较小的话，就缩小，height缩小，所以为mid-1
 				high = mid - 1;
 			else
 				low = mid + 1;

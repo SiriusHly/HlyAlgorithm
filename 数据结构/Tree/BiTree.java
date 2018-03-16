@@ -207,9 +207,7 @@ public class BiTree {
 	public int getDepth(BiTreeNode T) {
 		if (T != null) {
 			int lDepth = getDepth(T.lchild);
-			System.out.println("l  :"+lDepth);
 			int rDepth = getDepth(T.rchild);
-			System.out.println("r  :"+rDepth);
 			return 1 + (lDepth > rDepth ? lDepth : rDepth);
 		}
 		return 0;

@@ -13,7 +13,6 @@ public class MyHuffman {
 	public String coding(String str) {
 		ArrayList<HuffmanNode> leaf = new ArrayList<HuffmanNode>();
 		T = build(str, leaf);
-		// System.out.println("lead"+leaf.size());
 		ArrayList<Codes> Code = code(leaf);
 		String allCode = "";
 		for(Codes c:Code)
@@ -36,7 +35,6 @@ public class MyHuffman {
 				}
 			}
 			strdecode += p.data;
-			// System.out.println(p.str);
 		}
 		return strdecode;
 
@@ -44,10 +42,6 @@ public class MyHuffman {
 
 	public HuffmanTree build(String str, ArrayList<HuffmanNode> leaf) {
 		ArrayList<Codes> weight = weight(str.toCharArray());
-		//System.out.println("size"+weight.size());
-		for(Codes c:weight){
-			System.out.println(c.getLetter()+"个数:"+c.getHuffmweight());
-		}
 		LinkedList<HuffmanNode> l = new LinkedList<>();
 
 		for (Codes c : weight) {
@@ -61,7 +55,6 @@ public class MyHuffman {
 		while (l.size() > 1) {
 			HuffmanNode p1 = selectMin(l);
 			l.remove(p1);
-			// System.out.println(l.size());
 			HuffmanNode p2 = selectMin(l);
 			l.remove(p2);
 			HuffmanNode newNode = new HuffmanNode();
@@ -92,11 +85,9 @@ public class MyHuffman {
 	}
 
 	public ArrayList<Codes> code(ArrayList<HuffmanNode> leaf){
-		//System.out.println("leaf:"+leaf.size());
 		ArrayList<Codes> code = new ArrayList<>();
 		for(HuffmanNode p: leaf){
 			Character c = p.getData().charAt(0);
-			//System.out.println("leafc"+c);
 			String strCode ="";
 			HuffmanNode cuNode = p;
 			while(cuNode.parent!=null){
@@ -110,7 +101,6 @@ public class MyHuffman {
 			}
 			strCode = new StringBuffer(strCode).reverse().toString();
 			code.add(new Codes("c",strCode));
-			System.out.println(c + ":" + strCode);
 		}
 		return code;
 	}
@@ -121,11 +111,9 @@ public class MyHuffman {
 		ArrayList<Codes> arrlist = new ArrayList<Codes>();
 		arrlist.add(new Codes(String.valueOf(Arr[0]),1));
 		for(int c = 1;c<Arr.length;c++){
-			//System.out.println("arrsize"+arrlist.size());
 			int s = arrlist.size();
 			for(int i=0;i<s;i++){
 				if(arrlist.get(i).getLetter().equals(String.valueOf(Arr[c]))){
-					//System.out.println("=="+Arr[c]);
 					arrlist.get(i).setHuffmweight(arrlist.get(i).getHuffmweight()+1);
 					break;
 				}
@@ -137,8 +125,6 @@ public class MyHuffman {
 			
 		}
 		
-		/*for(Codes i:arrlist)
-			System.out.println("统计个数："+i.getLetter()+" "+i.getHuffmweight());*/
 		return arrlist;
 	}
 

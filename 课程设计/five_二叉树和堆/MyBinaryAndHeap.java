@@ -71,10 +71,9 @@ public class MyBinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 		}
 	}
 
-	// 转为顺序存储存放的数组
 	ArrayList<AnyType> Arr = new ArrayList<>();
 
-	// 判断完全二叉树，层次遍历
+	
 	public boolean isCompleteBinaryTree(BiTreeNode<AnyType> root) {
 		if (root == null)
 			return true;
@@ -87,6 +86,7 @@ public class MyBinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 			BiTreeNode<AnyType> node = queue.poll();
 			Arr.add(node.data);
 			if (shouldleaff && (node.lchild != null || node.rchild != null))
+				
 				return false;
 			if (node.lchild == null && node.rchild != null)
 				return false;
@@ -145,31 +145,33 @@ public class MyBinaryAndHeap<AnyType extends Comparable<? super AnyType>> {
 		String[] S4 = { "y", "x", "d", "b", "c" };
 
 		MyBinaryAndHeap<String> T = new MyBinaryAndHeap<String>(S3, S4, 0, 0, S3.length);
-		MyBinaryAndHeap<String> T2 = new MyBinaryAndHeap<String>(S1, S2, 0, 0, S1.length);
+		//MyBinaryAndHeap<String> T2 = new MyBinaryAndHeap<String>(S1, S2, 0, 0, S1.length);
+		System.out.println("后序遍历：");
 		T.postTraverse(T.root);
 		System.out.println();
+		System.out.println("先序遍历：");
 		T.preTraverse(T.root);
 		System.out.println();
+		System.out.println("中序遍历：");
 		T.inTraverse(T.root);
 		System.out.println();
-		System.out.println("是否为完全二叉树T:" + T.isCompleteBinaryTree(T.root));
+		System.out.println("是否为完全二叉树：");
+		System.out.println(T.isCompleteBinaryTree(T.root));
 		boolean flag = true;
 
-		System.out.println("顺序存储:");
 		for (String i : T.Arr)
 			System.out.print(i + " ");
 		System.out.println();
-
+		System.out.println("是否为小顶堆：");
 		for (int i = 0; i < T.Arr.size(); i++) {
 			if (i != 0 && T.Arr.get(i).compareTo(T.Arr.get((i - 1) / 2)) > 0)
 				flag = true;
 			else
 				flag = false;
 		}
-		System.out.println("T是否为小顶堆:" + flag);
+		System.out.println(flag);
 		String[] S = (String[]) T.Arr.toArray(new String[0]);
-		// T.heapSort(S);
-		System.out.println("调整为堆后的顺序存储");
+		System.out.println("堆排序：");
 		for (String j : T.heapSort(S))
 			System.out.print(j + " ");
 	}
